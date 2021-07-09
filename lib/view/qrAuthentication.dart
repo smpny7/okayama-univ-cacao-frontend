@@ -59,7 +59,7 @@ class _QRAuthenticationState extends State<QRAuthentication> {
             ),
             BottomButtons(
               true,
-              true,
+              false,
               true,
               '次へ',
               'IDとパスワードで認証',
