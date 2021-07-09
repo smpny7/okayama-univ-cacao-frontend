@@ -26,6 +26,8 @@
 	<true/>
 	<key>NFCReaderUsageDescription</key>
 	<string>学生証を読み取るために使用します</string>
+	<key>NSCameraUsageDescription</key>
+	<string>QRコードを利用してログインできます</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>岡山大学データサーバーとの通信に利用します</string>
 	<key>UILaunchStoryboardName</key>
@@ -33,7 +35,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiresFullScreen</key>
-	<true/>
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -52,5 +54,7 @@
 		<string>8E4B</string>
 		<string>FE00</string>
 	</array>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>
