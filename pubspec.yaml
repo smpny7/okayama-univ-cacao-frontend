@@ -46,6 +46,7 @@ flutter:
     - assets/Authentication.svg
     - assets/CreditCard.svg
     - assets/Network.svg
+    - assets/Notice.svg
     - assets/PinCode.svg
     - assets/Rejected.svg
 

@@ -25,10 +25,8 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: QRAuthentication(),
       initialRoute: initialRoute,
       routes: <String, WidgetBuilder>{
-        // '/': (BuildContext context) => MyHomePage(),
         '/QRAuthentication': (BuildContext context) => QRAuthentication(),
         '/PasswordAuthentication': (BuildContext context) =>
             PasswordAuthentication(),
