@@ -14,6 +14,10 @@ import 'modal/networkError.dart';
 import 'passwordAuthentication.dart';
 
 class App extends StatelessWidget {
+  final String initialRoute;
+
+  App({required this.initialRoute});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,15 +26,16 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: QRAuthentication(),
-      initialRoute: '/QRAuthentication',
+      initialRoute: initialRoute,
       routes: <String, WidgetBuilder>{
-        '/': (BuildContext context) => MyHomePage(),
+        // '/': (BuildContext context) => MyHomePage(),
         '/QRAuthentication': (BuildContext context) => QRAuthentication(),
         '/PasswordAuthentication': (BuildContext context) =>
             PasswordAuthentication(),
         '/QRCodeScan': (BuildContext context) => QRCodeScan(),
         '/Home': (BuildContext context) => Home(),
-        '/AuthenticationFailed': (BuildContext context) => AuthenticationFailed(),
+        '/AuthenticationFailed': (BuildContext context) =>
+            AuthenticationFailed(),
         '/NetworkErrorModal': (BuildContext context) => NetworkErrorModal(),
       },
     );

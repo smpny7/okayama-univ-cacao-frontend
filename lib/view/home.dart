@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:i10jan/model/auth.dart';
 
 import 'component/bottomButtons.dart';
 
@@ -57,7 +58,7 @@ class _HomeState extends State<Home> {
                 )),
             Container(height: 120),
             BottomButtons(!_isAndroid, true, true, 'スキャン', '学生番号で登録',
-                () => null, () => null),
+                () => null, () => Auth().logout()),
           ],
         ),
       ),

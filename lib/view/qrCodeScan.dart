@@ -1,10 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:i10jan/model/api.dart';
+import 'package:i10jan/model/auth.dart';
 import 'package:i10jan/view/component/bottomButtons.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -29,9 +28,7 @@ class _QRCodeScanState extends State<QRCodeScan> {
   @override
   void reassemble() {
     super.reassemble();
-    if (Platform.isAndroid) {
-      _qrController?.pauseCamera();
-    }
+    if (Platform.isAndroid) _qrController?.pauseCamera();
     _qrController?.resumeCamera();
   }
 
@@ -48,7 +45,17 @@ class _QRCodeScanState extends State<QRCodeScan> {
         children: <Widget>[
           Expanded(
             flex: 4,
-            child: _buildQRView(context),
+            child: QRView(
+              key: _qrKey,
+              onQRViewCreated: _onQRViewCreated,
+              overlay: QrScannerOverlayShape(
+                borderColor: Colors.green,
+                borderRadius: 16,
+                borderLength: 24,
+                borderWidth: 8,
+                // cutOutSize: scanArea,
+              ),
+            ),
           ),
           Container(height: 30),
           Text(
@@ -65,20 +72,6 @@ class _QRCodeScanState extends State<QRCodeScan> {
           BottomButtons(true, false, true, 'キャンセル', null,
               () => Navigator.of(context).pop(), () => null)
         ],
-      ),
-    );
-  }
-
-  Widget _buildQRView(BuildContext context) {
-    return QRView(
-      key: _qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-        borderColor: Colors.green,
-        borderRadius: 16,
-        borderLength: 24,
-        borderWidth: 8,
-        // cutOutSize: scanArea,
       ),
     );
   }
@@ -121,8 +114,10 @@ class _QRCodeScanState extends State<QRCodeScan> {
         );
 
       try {
-        if (await Network().login(query['id']!, query['password']!).timeout(const Duration(seconds: 5))) {
-          Navigator.of(context).popUntil(ModalRoute.withName('/'));
+        if (await Auth()
+            .loginAndReturnIsSuccessful(query['id']!, query['password']!)
+            .timeout(const Duration(seconds: 5))) {
+          Navigator.of(context).popUntil(ModalRoute.withName('/QRAuthentication'));
           Navigator.of(context).pushReplacementNamed('/Home');
         } else
           Navigator.of(context).pushNamed('/AuthenticationFailed').then(
