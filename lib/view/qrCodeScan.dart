@@ -121,7 +121,7 @@ class _QRCodeScanState extends State<QRCodeScan> {
         );
 
       try {
-        if (await Network().login(query['id']!, query['password']!)) {
+        if (await Network().login(query['id']!, query['password']!).timeout(const Duration(seconds: 5))) {
           Navigator.of(context).popUntil(ModalRoute.withName('/'));
           Navigator.of(context).pushReplacementNamed('/Home');
         } else

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Network {
   final String _url = 'http://192.168.11.12:8000';
+  // final String _url = 'http://192.168.11.11:8000';
   // final String _url = 'http://10.6.27.95:8000';
 
   //if you are using android studio emulator, change localhost to 10.0.2.2
