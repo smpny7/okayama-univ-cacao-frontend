@@ -1,11 +1,10 @@
-import 'dart:ffi';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:i10jan/model/api.dart';
 import 'package:i10jan/view/component/bottomButtons.dart';
+import 'package:vibration/vibration.dart';
 
 import 'component/backFloatingButton.dart';
 
@@ -155,6 +154,7 @@ class _MedicalConsultationState extends State<MedicalConsultation> {
     if (await API()
         .enterRoomAndReturnIsSuccessful(args.studentID, args.bodyTemp)) {
       player.play('sounds/success.mp3');
+      if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
       Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
     } else {
       Navigator.of(context).pushNamed('/NetworkErrorModal');
