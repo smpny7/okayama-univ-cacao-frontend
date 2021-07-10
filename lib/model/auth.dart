@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:i10jan/model/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth {
@@ -47,6 +48,9 @@ class Auth {
       localStorage.setString('access_token', json.encode(body['access_token']));
       localStorage.setString(
           'refresh_token', json.encode(body['refresh_token']));
+      print(await API().getClubName());
+      localStorage.setString(
+          'club_name', json.encode(await API().getClubName()));
       return true;
     }
   }
@@ -55,6 +59,7 @@ class Auth {
     var localStorage = await SharedPreferences.getInstance();
     localStorage.remove('access_token');
     localStorage.remove('refresh_token');
+    localStorage.remove('club_name');
     print('logout');
   }
 }

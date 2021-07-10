@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:i10jan/model/auth.dart';
 
 class SettingFloatingButton extends StatelessWidget {
   final Function buttonFunction;
@@ -20,7 +21,7 @@ class SettingFloatingButton extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.centerRight,
           child: FloatingActionButton(
-            onPressed: () => buttonFunction,
+            onPressed: () => Auth().logout(),
             child: Icon(
               Icons.settings,
               color: HexColor('#FFFFFF'),

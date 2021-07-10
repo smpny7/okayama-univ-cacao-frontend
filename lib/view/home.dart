@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:i10jan/model/auth.dart';
 import 'package:i10jan/model/nfc.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'component/bottomButtons.dart';
 import 'component/settingFloatingButton.dart';
@@ -18,6 +20,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String clubName = '';
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +33,8 @@ class _HomeState extends State<Home> {
     final safePadding = MediaQuery.of(context).padding.top;
 
     if (Platform.isAndroid) _startAndroidScan();
+
+    _setClubName();
 
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
@@ -60,7 +66,7 @@ class _HomeState extends State<Home> {
                       width: double.infinity,
                       margin: EdgeInsets.only(left: 30),
                       child: Text(
-                        '電子計算機研究会さん',
+                        '$clubNameさん',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: HexColor('#3F3F3F'),
@@ -87,7 +93,7 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                SettingFloatingButton(() => Auth().logout()),
+                SettingFloatingButton(() => null),
               ],
             ),
           ),
@@ -123,9 +129,16 @@ class _HomeState extends State<Home> {
         var studentID = await NFC().readFelicaOniOS(felica);
         print(studentID);
         NfcManager.instance.stopSession();
-        Navigator.of(context).pushNamed('/BodyTemperature', arguments: studentID);
+        Navigator.of(context)
+            .pushNamed('/BodyTemperature', arguments: studentID);
       }
     });
+  }
+
+  _setClubName() async {
+    var localStorage = await SharedPreferences.getInstance();
+    var clubName = await jsonDecode(localStorage.getString('club_name')!);
+    setState(() => this.clubName = clubName);
   }
 
   String greeting() {

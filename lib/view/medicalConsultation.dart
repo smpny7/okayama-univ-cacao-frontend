@@ -152,8 +152,8 @@ class _MedicalConsultationState extends State<MedicalConsultation> {
 
   _enterRoom(args) async {
     AudioCache player = AudioCache();
-    if (await API().enterRoomAndReturnIsSuccessful(args.studentID,
-        args.bodyTemp, '2eb408f0-dd3a-11eb-ba9e-77ab29becfd5')) {
+    if (await API()
+        .enterRoomAndReturnIsSuccessful(args.studentID, args.bodyTemp)) {
       player.play('sounds/success.mp3');
       Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
     } else {
