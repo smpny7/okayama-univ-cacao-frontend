@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:i10jan/model/auth.dart';
 import 'package:i10jan/model/nfc.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';
 
 import 'component/bottomButtons.dart';
-import 'component/noticeButton.dart';
+import 'component/settingFloatingButton.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,6 +31,7 @@ class _HomeState extends State<Home> {
     if (Platform.isAndroid) _startAndroidScan();
 
     return Scaffold(
+      backgroundColor: HexColor('#F4FFFD'),
       body: Column(
         children: [
           Expanded(
@@ -48,7 +50,6 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                           color: HexColor('#3F3F3F'),
                           letterSpacing: 2,
-                          fontFamily: 'NotoSansJP',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
@@ -64,7 +65,6 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                           color: HexColor('#3F3F3F'),
                           letterSpacing: 2,
-                          fontFamily: 'NotoSansJP',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                     ),
                     Container(height: 120),
                     SvgPicture.asset(
-                      'assets/CreditCard.svg',
+                      'assets/images/CreditCard.svg',
                       width: 200,
                     ),
                     Container(height: 40),
@@ -81,14 +81,13 @@ class _HomeState extends State<Home> {
                       style: TextStyle(
                         color: HexColor('#3F3F3F'),
                         letterSpacing: 2,
-                        fontFamily: 'NotoSansJP',
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
-                NoticeButton(() => null),
+                SettingFloatingButton(() => Auth().logout()),
               ],
             ),
           ),
@@ -124,7 +123,7 @@ class _HomeState extends State<Home> {
         var studentID = await NFC().readFelicaOniOS(felica);
         print(studentID);
         NfcManager.instance.stopSession();
-        // Navigator.of(context).pushNamed('');
+        Navigator.of(context).pushNamed('/BodyTemperature', arguments: studentID);
       }
     });
   }

@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class NoticeButton extends StatelessWidget {
+class SettingFloatingButton extends StatelessWidget {
   final Function buttonFunction;
 
-  NoticeButton(this.buttonFunction);
+  SettingFloatingButton(this.buttonFunction);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,10 @@ class NoticeButton extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: FloatingActionButton(
             onPressed: () => buttonFunction,
-            child: SvgPicture.asset('assets/Notice.svg'),
+            child: Icon(
+              Icons.settings,
+              color: HexColor('#FFFFFF'),
+            ),
             backgroundColor: HexColor("#27DAB8"),
           ),
         ),

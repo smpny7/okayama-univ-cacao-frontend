@@ -12,7 +12,6 @@ class QRAuthentication extends StatefulWidget {
 }
 
 class _QRAuthenticationState extends State<QRAuthentication> {
-
   @override
   void initState() {
     super.initState();
@@ -33,14 +32,13 @@ class _QRAuthenticationState extends State<QRAuthentication> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(height: 60 + safePadding),
-                  SvgPicture.asset('assets/PinCode.svg'),
+                  SvgPicture.asset('assets/images/PinCode.svg'),
                   Container(height: 30),
                   Text(
                     '所属団体を認証します',
                     style: TextStyle(
                       color: HexColor('#3F3F3F'),
                       letterSpacing: 1,
-                      fontFamily: 'NotoSansJP',
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),

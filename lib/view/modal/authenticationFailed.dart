@@ -23,14 +23,16 @@ class _AuthenticationFailedState extends State<AuthenticationFailed> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(height: 200 + safePadding),
-                  SvgPicture.asset('assets/Rejected.svg', width: 180,),
+                  SvgPicture.asset(
+                    'assets/images/Rejected.svg',
+                    width: 180,
+                  ),
                   Container(height: 70),
                   Text(
                     '認証に失敗しました',
                     style: TextStyle(
                       color: HexColor('#3F3F3F'),
                       letterSpacing: 2,
-                      fontFamily: 'NotoSansJP',
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),

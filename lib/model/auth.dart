@@ -55,5 +55,6 @@ class Auth {
     var localStorage = await SharedPreferences.getInstance();
     localStorage.remove('access_token');
     localStorage.remove('refresh_token');
+    print("logout");
   }
 }

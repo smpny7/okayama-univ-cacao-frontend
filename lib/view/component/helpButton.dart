@@ -46,7 +46,6 @@ class HelpButton extends StatelessWidget {
               style: TextStyle(
                 color: HexColor('#69F3D8'),
                 letterSpacing: 2,
-                fontFamily: 'NotoSansJP',
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
               ),

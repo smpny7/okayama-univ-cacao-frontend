@@ -8,6 +8,7 @@ import 'package:nfc_manager/platform_tags.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../readStudentID.dart';
+import 'bodyTemperature.dart';
 import 'home.dart';
 import 'modal/authenticationFailed.dart';
 import 'modal/networkError.dart';
@@ -23,6 +24,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'i10jan',
       theme: ThemeData(
+        fontFamily: 'NotoSansJP',
         primarySwatch: Colors.blue,
       ),
       initialRoute: initialRoute,
@@ -35,6 +37,7 @@ class App extends StatelessWidget {
         '/AuthenticationFailed': (BuildContext context) =>
             AuthenticationFailed(),
         '/NetworkErrorModal': (BuildContext context) => NetworkErrorModal(),
+        '/BodyTemperature': (BuildContext context) => BodyTemperature(),
       },
     );
   }

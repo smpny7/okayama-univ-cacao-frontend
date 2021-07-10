@@ -23,14 +23,13 @@ class _NetworkErrorModalState extends State<NetworkErrorModal> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(height: 200 + safePadding),
-                  SvgPicture.asset('assets/Network.svg'),
+                  SvgPicture.asset('assets/images/Network.svg'),
                   Container(height: 70),
                   Text(
                     'サーバーに接続できません',
                     style: TextStyle(
                       color: HexColor('#3F3F3F'),
                       letterSpacing: 2,
-                      fontFamily: 'NotoSansJP',
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),

@@ -43,25 +43,20 @@ flutter:
 
   assets:
     - .env
-    - assets/Authentication.svg
-    - assets/CreditCard.svg
-    - assets/Network.svg
-    - assets/Notice.svg
-    - assets/PinCode.svg
-    - assets/Rejected.svg
+    - assets/images/
 
   fonts:
     - family: NotoSansJP
       fonts:
-        - asset: assets/NotoSansJP-Black.otf
+        - asset: assets/fonts/NotoSansJP-Black.otf
           weight: 900
-        - asset: assets/NotoSansJP-Bold.otf
+        - asset: assets/fonts/NotoSansJP-Bold.otf
           weight: 700
-        - asset: assets/NotoSansJP-Light.otf
+        - asset: assets/fonts/NotoSansJP-Light.otf
           weight: 500
-        - asset: assets/NotoSansJP-Medium.otf
+        - asset: assets/fonts/NotoSansJP-Medium.otf
           weight: 400
-        - asset: assets/NotoSansJP-Regular.otf
+        - asset: assets/fonts/NotoSansJP-Regular.otf
           weight: 300
-        - asset: assets/NotoSansJP-Thin.otf
+        - asset: assets/fonts/NotoSansJP-Thin.otf
           weight: 100

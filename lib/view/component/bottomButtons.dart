@@ -59,7 +59,6 @@ class BottomButtons extends StatelessWidget {
                       buttonTitle ?? '',
                       style: TextStyle(
                         color: HexColor('#FFFFFF'),
-                        fontFamily: 'NotoSansJP',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 5.0,
@@ -88,7 +87,6 @@ class BottomButtons extends StatelessWidget {
                 child: Text(
                   textButtonTitle ?? '',
                   style: TextStyle(
-                    fontFamily: 'NotoSansJP',
                     fontSize: 16,
                     color: HexColor('#27DAB8'),
                   ),

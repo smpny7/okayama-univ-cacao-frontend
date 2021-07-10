@@ -41,6 +41,7 @@ class _QRCodeScanState extends State<QRCodeScan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HexColor('#F4FFFD'),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -63,7 +64,6 @@ class _QRCodeScanState extends State<QRCodeScan> {
             style: TextStyle(
               color: HexColor('#3F3F3F'),
               letterSpacing: 2,
-              fontFamily: 'NotoSansJP',
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -117,7 +117,8 @@ class _QRCodeScanState extends State<QRCodeScan> {
         if (await Auth()
             .loginAndReturnIsSuccessful(query['id']!, query['password']!)
             .timeout(const Duration(seconds: 5))) {
-          Navigator.of(context).popUntil(ModalRoute.withName('/QRAuthentication'));
+          Navigator.of(context)
+              .popUntil(ModalRoute.withName('/QRAuthentication'));
           Navigator.of(context).pushReplacementNamed('/Home');
         } else
           Navigator.of(context).pushNamed('/AuthenticationFailed').then(
