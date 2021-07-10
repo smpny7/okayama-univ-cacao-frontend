@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:i10jan/view/component/backFloatingButton.dart';
+import 'package:i10jan/view/medicalConsultation.dart';
 
 class BodyTemperature extends StatefulWidget {
   @override
@@ -57,51 +58,53 @@ class _BodyTemperatureState extends State<BodyTemperature> {
                         ),
                       ),
                       Container(
-                          width: 200,
-                          child: TextFormField(
-                              maxLength: 4,
-                              style: TextStyle(
-                                color: HexColor('#3F3F3F'),
-                                fontSize: 22,
-                                letterSpacing: 2,
+                        width: 200,
+                        child: TextFormField(
+                          maxLength: 4,
+                          style: TextStyle(
+                            color: HexColor('#3F3F3F'),
+                            fontSize: 22,
+                            letterSpacing: 2,
+                          ),
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[0-9.]')),
+                          ],
+                          decoration: new InputDecoration(
+                            counterText: '',
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: HexColor('#69F3D8'),
+                                width: 2.5,
                               ),
-                              keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp(r'[0-9.]')),
-                              ],
-                              decoration: new InputDecoration(
-                                counterText: '',
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: HexColor('#69F3D8'),
-                                    width: 2.5,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: HexColor('#69F3D8'),
-                                    width: 2.5,
-                                  ),
-                                ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: HexColor('#69F3D8'),
+                                width: 2.5,
                               ),
-                              onChanged: (text) {
-                                double temp;
+                            ),
+                          ),
+                          onChanged: (text) {
+                            double temp;
 
-                                try {
-                                  temp = double.parse(text);
-                                  isValidTemp = (temp >= 35.0 &&
-                                      temp < 38.0 &&
-                                      text.length == 4);
-                                } catch (e) {
-                                  isValidTemp = false;
-                                } finally {
-                                  if (isValidTemp)
-                                    setState(() =>
-                                        this.bodyTemp = double.parse(text));
-                                }
-                              })),
+                            try {
+                              temp = double.parse(text);
+                              isValidTemp = (temp >= 35.0 &&
+                                  temp < 38.0 &&
+                                  text.length == 4);
+                            } catch (e) {
+                              isValidTemp = false;
+                            } finally {
+                              if (isValidTemp)
+                                setState(
+                                    () => this.bodyTemp = double.parse(text));
+                            }
+                          },
+                        ),
+                      ),
                       Container(height: 50),
                     ],
                   ),
@@ -113,7 +116,16 @@ class _BodyTemperatureState extends State<BodyTemperature> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               ElevatedButton(
-                onPressed: isValidTemp ? () => null : null,
+                onPressed: isValidTemp
+                    ? () => Navigator.of(context).pushNamed(
+                        '/MedicalConsultation',
+                        arguments: MedicalConsultationArguments(
+                            studentID: ModalRoute.of(context)!
+                                .settings
+                                .arguments
+                                .toString(),
+                            bodyTemp: bodyTemp))
+                    : null,
                 style: ElevatedButton.styleFrom(
                   elevation: isValidTemp ? 2 : 0,
                   padding: EdgeInsets.zero,
@@ -153,7 +165,7 @@ class _BodyTemperatureState extends State<BodyTemperature> {
               ),
               Container(
                   height:
-                      (bottomSpace != 0 ? safePadding / 2 : safePadding) + 15),
+                      (bottomSpace != 0 ? safePadding / 3 : safePadding) + 15),
             ],
           ),
         ],

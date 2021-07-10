@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:i10jan/view/QRAuthentication.dart';
 import 'package:i10jan/view/qrCodeScan.dart';
 import 'package:nfc_manager/nfc_manager.dart';
@@ -10,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../readStudentID.dart';
 import 'bodyTemperature.dart';
 import 'home.dart';
+import 'medicalConsultation.dart';
 import 'modal/authenticationFailed.dart';
 import 'modal/networkError.dart';
 import 'passwordAuthentication.dart';
@@ -25,7 +27,9 @@ class App extends StatelessWidget {
       title: 'i10jan',
       theme: ThemeData(
         fontFamily: 'NotoSansJP',
+        highlightColor: HexColor('#E9FFFB'),
         primarySwatch: Colors.blue,
+        splashColor: HexColor('#E9FFFB'),
       ),
       initialRoute: initialRoute,
       routes: <String, WidgetBuilder>{
@@ -38,6 +42,7 @@ class App extends StatelessWidget {
             AuthenticationFailed(),
         '/NetworkErrorModal': (BuildContext context) => NetworkErrorModal(),
         '/BodyTemperature': (BuildContext context) => BodyTemperature(),
+        '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),
       },
     );
   }

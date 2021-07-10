@@ -27,6 +27,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   hexcolor: ^2.0.4
   flutter_svg: ^0.22.0
+  audioplayers: ^0.19.1
   nfc_manager: ^3.1.0
   qr_code_scanner: ^0.5.1
   permission_handler: ^8.1.2
@@ -44,6 +45,7 @@ flutter:
   assets:
     - .env
     - assets/images/
+    - assets/sounds/success.mp3
 
   fonts:
     - family: NotoSansJP

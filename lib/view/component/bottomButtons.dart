@@ -93,7 +93,7 @@ class BottomButtons extends StatelessWidget {
                 ),
               )
             : Container(height: 10),
-        Container(height: safePadding + 15),
+        Container(height: safePadding / 2 + 15),
       ],
     );
   }

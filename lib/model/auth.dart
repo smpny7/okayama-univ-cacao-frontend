@@ -14,7 +14,7 @@ class Auth {
     var localStorage = await SharedPreferences.getInstance();
     if (localStorage.getString('access_token') != null)
       return jsonDecode(
-          localStorage.getString('access_token')!)['access_token'];
+          localStorage.getString('access_token')!);
     else
       throw ('Token does not exist.');
   }
@@ -25,12 +25,12 @@ class Auth {
         !RegExp(r'^[0-9a-zA-Z]*$').hasMatch(password)) return false;
 
     var data = {
-      "grant_type": "password",
-      "client_id": "1",
-      "client_secret": dotenv.env['CLIENT_SECRET'],
-      "username": username,
-      "password": password,
-      "scope": "*"
+      'grant_type': 'password',
+      'client_id': '1',
+      'client_secret': dotenv.env['CLIENT_SECRET'],
+      'username': username,
+      'password': password,
+      'scope': '*'
     };
 
     var fullUrl = Uri.parse(dotenv.env['URL']! + '/oauth/token');
@@ -55,6 +55,6 @@ class Auth {
     var localStorage = await SharedPreferences.getInstance();
     localStorage.remove('access_token');
     localStorage.remove('refresh_token');
-    print("logout");
+    print('logout');
   }
 }
