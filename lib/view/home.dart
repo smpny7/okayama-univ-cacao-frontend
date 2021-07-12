@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:i10jan/model/auth.dart';
+import 'package:i10jan/model/api.dart';
 import 'package:i10jan/model/nfc.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vibration/vibration.dart';
 
 import 'component/bottomButtons.dart';
 import 'component/settingFloatingButton.dart';
@@ -114,7 +116,7 @@ class _HomeState extends State<Home> {
         var studentID = await NFC().readFelicaOnAndroid(nfcf);
         print(studentID);
         NfcManager.instance.stopSession();
-        Navigator.of(context).pushNamed('/AuthenticationFailed');
+        Navigator.of(context).pushNamed('/AuthenticationFailedModal');
       }
     });
   }
@@ -129,16 +131,46 @@ class _HomeState extends State<Home> {
         var studentID = await NFC().readFelicaOniOS(felica);
         print(studentID);
         NfcManager.instance.stopSession();
-        Navigator.of(context)
-            .pushNamed('/BodyTemperature', arguments: studentID);
+        _getStudentStatus(studentID);
       }
     });
+  }
+
+  _getStudentStatus(String studentID) async {
+    try {
+      var res = await API()
+          .getStudentStatus(studentID)
+          .timeout(const Duration(seconds: 5));
+      if (!res['success'])
+        Navigator.of(context).pushNamed('/AuthenticationFailedModal');
+      if (res['data']['active_club'] == null)
+        Navigator.of(context)
+            .pushNamed('/BodyTemperature', arguments: studentID);
+      else if (!res['data']['is_my_room']) print('XXX から強制退室します');
+      else _leaveRoom(studentID);
+    } catch (e) {
+      Navigator.of(context).pushNamed('/NetworkErrorModal');
+    }
   }
 
   _setClubName() async {
     var localStorage = await SharedPreferences.getInstance();
     var clubName = await jsonDecode(localStorage.getString('club_name')!);
     setState(() => this.clubName = clubName);
+  }
+
+  _leaveRoom(studentID) async {
+    AudioCache player = AudioCache();
+    if (await API().leaveRoomAndReturnIsSuccessful(studentID)) {
+      player.play('sounds/success.mp3');
+      if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
+      Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+      Navigator.of(context)
+          .pushNamed('/LeaveSuccessfulModal');
+    } else {
+      Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+      Navigator.of(context).pushNamed('/NetworkErrorModal');
+    }
   }
 
   String greeting() {

@@ -88,7 +88,7 @@ class _QRCodeScanState extends State<QRCodeScan> {
       _isQRScanned = true;
 
       if (type != 'qrcode')
-        Navigator.of(context).pushNamed('/AuthenticationFailed').then(
+        Navigator.of(context).pushNamed('/AuthenticationFailedModal').then(
           (value) {
             _qrController?.resumeCamera();
             _isQRScanned = false;
@@ -96,7 +96,7 @@ class _QRCodeScanState extends State<QRCodeScan> {
         );
 
       if (!RegExp(r'^[0-9a-zA-Z=&]*$').hasMatch(data))
-        Navigator.of(context).pushNamed('/AuthenticationFailed').then(
+        Navigator.of(context).pushNamed('/AuthenticationFailedModal').then(
           (value) {
             _qrController?.resumeCamera();
             _isQRScanned = false;
@@ -106,7 +106,7 @@ class _QRCodeScanState extends State<QRCodeScan> {
       var query = Uri.splitQueryString(data);
 
       if (query['id'] == null || query['password'] == null)
-        Navigator.of(context).pushNamed('/AuthenticationFailed').then(
+        Navigator.of(context).pushNamed('/AuthenticationFailedModal').then(
           (value) {
             _qrController?.resumeCamera();
             _isQRScanned = false;
@@ -121,7 +121,7 @@ class _QRCodeScanState extends State<QRCodeScan> {
               .popUntil(ModalRoute.withName('/QRAuthentication'));
           Navigator.of(context).pushReplacementNamed('/Home');
         } else
-          Navigator.of(context).pushNamed('/AuthenticationFailed').then(
+          Navigator.of(context).pushNamed('/AuthenticationFailedModal').then(
             (value) {
               _qrController?.resumeCamera();
               _isQRScanned = false;

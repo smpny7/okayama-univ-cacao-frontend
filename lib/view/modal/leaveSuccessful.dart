@@ -1,18 +1,24 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:i10jan/view/component/bottomButtons.dart';
-import 'package:i10jan/view/component/helpButton.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class NetworkErrorModal extends StatefulWidget {
+class LeaveSuccessfulModal extends StatefulWidget {
   @override
-  _NetworkErrorModalState createState() => _NetworkErrorModalState();
+  _LeaveSuccessfulModalState createState() => _LeaveSuccessfulModalState();
 }
 
-class _NetworkErrorModalState extends State<NetworkErrorModal> {
+class _LeaveSuccessfulModalState extends State<LeaveSuccessfulModal> {
+  String clubName = '';
+
   @override
   Widget build(BuildContext context) {
     final safePadding = MediaQuery.of(context).padding.top;
+
+    _setClubName();
 
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
@@ -24,10 +30,11 @@ class _NetworkErrorModalState extends State<NetworkErrorModal> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(height: 200 + safePadding),
-                  SvgPicture.asset('assets/images/Network.svg'),
+                  SvgPicture.asset('assets/images/Logout.svg'),
                   Container(height: 70),
                   Text(
-                    'サーバーに接続できません',
+                    '$clubName から\n退室しました',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: HexColor('#3F3F3F'),
                       letterSpacing: 2,
@@ -35,16 +42,20 @@ class _NetworkErrorModalState extends State<NetworkErrorModal> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Container(height: 20),
-                  HelpButton(null, 'お困りの方はこちら', () => null)
                 ],
               ),
             ),
-            BottomButtons(true, false, true, '閉じる', '',
+            BottomButtons(true, false, true, '完了', '',
                 () => Navigator.of(context).pop(), () => null),
           ],
         ),
       ),
     );
+  }
+
+  _setClubName() async {
+    var localStorage = await SharedPreferences.getInstance();
+    var clubName = await jsonDecode(localStorage.getString('club_name')!);
+    setState(() => this.clubName = clubName);
   }
 }

@@ -12,6 +12,7 @@ import '../readStudentID.dart';
 import 'bodyTemperature.dart';
 import 'home.dart';
 import 'medicalConsultation.dart';
+import 'modal/leaveSuccessful.dart';
 import 'modal/authenticationFailed.dart';
 import 'modal/networkError.dart';
 import 'passwordAuthentication.dart';
@@ -38,11 +39,12 @@ class App extends StatelessWidget {
             PasswordAuthentication(),
         '/QRCodeScan': (BuildContext context) => QRCodeScan(),
         '/Home': (BuildContext context) => Home(),
-        '/AuthenticationFailed': (BuildContext context) =>
-            AuthenticationFailed(),
-        '/NetworkErrorModal': (BuildContext context) => NetworkErrorModal(),
         '/BodyTemperature': (BuildContext context) => BodyTemperature(),
         '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),
+        '/AuthenticationFailedModal': (BuildContext context) =>
+            AuthenticationFailedModal(),
+        '/NetworkErrorModal': (BuildContext context) => NetworkErrorModal(),
+        '/LeaveSuccessfulModal': (BuildContext context) => LeaveSuccessfulModal(),
       },
     );
   }

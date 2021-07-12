@@ -4,17 +4,18 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:i10jan/view/component/bottomButtons.dart';
 import 'package:i10jan/view/component/helpButton.dart';
 
-class AuthenticationFailed extends StatefulWidget {
+class AuthenticationFailedModal extends StatefulWidget {
   @override
-  _AuthenticationFailedState createState() => _AuthenticationFailedState();
+  _AuthenticationFailedModalState createState() => _AuthenticationFailedModalState();
 }
 
-class _AuthenticationFailedState extends State<AuthenticationFailed> {
+class _AuthenticationFailedModalState extends State<AuthenticationFailedModal> {
   @override
   Widget build(BuildContext context) {
     final safePadding = MediaQuery.of(context).padding.top;
 
     return Scaffold(
+      backgroundColor: HexColor('#F4FFFD'),
       body: Center(
         child: Column(
           children: [

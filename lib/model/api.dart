@@ -8,10 +8,19 @@ import 'auth.dart';
 class API {
   Future<String> getClubName() async {
     var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/getClubName');
-    var res = await http.get(fullUrl,headers: await _setHeaders());
+    var res = await http.get(fullUrl, headers: await _setHeaders());
     var body = json.decode(res.body);
     if (body['success']) return body['data'];
-    throw('Authentication Failed.');
+    throw ('Authentication Failed.');
+  }
+
+  Future getStudentStatus(String studentID) async {
+    var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/status');
+    Map<String, String> data = {'student_id': studentID};
+    var res = await http.post(fullUrl,
+        body: jsonEncode(data), headers: await _setHeaders());
+    var body = json.decode(res.body);
+    return body;
   }
 
   // Future<bool> getInRoomID(
@@ -35,6 +44,16 @@ class API {
       'student_id': studentID,
       'body_temp': bodyTemp.toString(),
     };
+    var res = await http.post(fullUrl,
+        body: jsonEncode(data), headers: await _setHeaders());
+    var body = json.decode(res.body);
+    return body['success'] == true;
+  }
+
+  Future<bool> leaveRoomAndReturnIsSuccessful(
+      String studentID) async {
+    var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/leave');
+    Map<String, String> data = {'student_id': studentID};
     var res = await http.post(fullUrl,
         body: jsonEncode(data), headers: await _setHeaders());
     var body = json.decode(res.body);
