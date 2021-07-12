@@ -12,6 +12,7 @@ import '../readStudentID.dart';
 import 'bodyTemperature.dart';
 import 'home.dart';
 import 'medicalConsultation.dart';
+import 'modal/forceLeave.dart';
 import 'modal/leaveSuccessful.dart';
 import 'modal/authenticationFailed.dart';
 import 'modal/networkError.dart';
@@ -45,6 +46,7 @@ class App extends StatelessWidget {
             AuthenticationFailedModal(),
         '/NetworkErrorModal': (BuildContext context) => NetworkErrorModal(),
         '/LeaveSuccessfulModal': (BuildContext context) => LeaveSuccessfulModal(),
+        '/ForceLeaveModal': (BuildContext context) => ForceLeaveModal(),
       },
     );
   }

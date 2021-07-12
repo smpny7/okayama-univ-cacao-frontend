@@ -15,6 +15,7 @@ import 'package:vibration/vibration.dart';
 
 import 'component/bottomButtons.dart';
 import 'component/settingFloatingButton.dart';
+import 'modal/forceLeave.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -146,8 +147,12 @@ class _HomeState extends State<Home> {
       if (res['data']['active_club'] == null)
         Navigator.of(context)
             .pushNamed('/BodyTemperature', arguments: studentID);
-      else if (!res['data']['is_my_room']) print('XXX から強制退室します');
-      else _leaveRoom(studentID);
+      else if (!res['data']['is_my_room'])
+        Navigator.of(context).pushNamed('/ForceLeaveModal',
+            arguments: ForceLeaveArguments(
+                studentID: studentID, clubID: res['data']['active_club']));
+      else
+        _leaveRoom(studentID);
     } catch (e) {
       Navigator.of(context).pushNamed('/NetworkErrorModal');
     }
@@ -165,8 +170,7 @@ class _HomeState extends State<Home> {
       player.play('sounds/success.mp3');
       if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
       Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
-      Navigator.of(context)
-          .pushNamed('/LeaveSuccessfulModal');
+      Navigator.of(context).pushNamed('/LeaveSuccessfulModal');
     } else {
       Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
       Navigator.of(context).pushNamed('/NetworkErrorModal');
