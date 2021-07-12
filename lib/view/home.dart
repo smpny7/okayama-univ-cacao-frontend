@@ -23,22 +23,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String clubName = '';
+  late String clubName = '';
+  late String greeting = '';
+  late double safePadding = 0;
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _setClubName();
+    _setGreeting();
+    _setSafePadding();
   }
 
   @override
   Widget build(BuildContext context) {
-    final safePadding = MediaQuery.of(context).padding.top;
-
-    if (Platform.isAndroid) _startAndroidScan();
-
-    _setClubName();
-
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
       body: Column(
@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
                       width: double.infinity,
                       margin: EdgeInsets.only(left: 30),
                       child: Text(
-                        greeting(),
+                        this.greeting,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: HexColor('#3F3F3F'),
@@ -101,11 +101,29 @@ class _HomeState extends State<Home> {
             ),
           ),
           BottomButtons(!Platform.isAndroid, false, true, 'スキャン', '学籍番号で登録',
-              () => _scannedOniOS(), () => null),
+              () => _iOSFeliCaScan(), () => null),
         ],
       ),
     );
   }
+
+  _setClubName() async {
+    var localStorage = await SharedPreferences.getInstance();
+    var clubName = await jsonDecode(localStorage.getString('club_name')!);
+    setState(() => this.clubName = clubName);
+  }
+
+  _setGreeting() => setState(() => this.greeting = (() {
+    var h = DateTime.now().hour;
+    if (6 <= h && h < 12) return 'おはようございます';
+    if (12 <= h && h < 17) return 'こんにちは';
+    return 'こんばんは';
+  })());
+
+  _setSafePadding() => Future.delayed(
+      Duration.zero,
+      () => setState(
+          () => this.safePadding = MediaQuery.of(context).padding.top));
 
   _startAndroidScan() {
     NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
@@ -122,7 +140,7 @@ class _HomeState extends State<Home> {
     });
   }
 
-  _scannedOniOS() {
+  _iOSFeliCaScan() {
     NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
       FeliCa? felica = FeliCa.from(tag);
 
@@ -158,12 +176,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  _setClubName() async {
-    var localStorage = await SharedPreferences.getInstance();
-    var clubName = await jsonDecode(localStorage.getString('club_name')!);
-    setState(() => this.clubName = clubName);
-  }
-
   _leaveRoom(studentID) async {
     AudioCache player = AudioCache();
     if (await API().leaveRoomAndReturnIsSuccessful(studentID)) {
@@ -175,19 +187,5 @@ class _HomeState extends State<Home> {
       Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
       Navigator.of(context).pushNamed('/NetworkErrorModal');
     }
-  }
-
-  String greeting() {
-    var now = DateTime.now();
-    var nowHour = now.hour;
-    String greetingWords;
-    if (6 <= nowHour && nowHour < 12) {
-      greetingWords = 'おはようございます';
-    } else if (12 <= nowHour && nowHour < 17) {
-      greetingWords = 'こんにちは';
-    } else {
-      greetingWords = 'こんばんは';
-    }
-    return greetingWords;
   }
 }

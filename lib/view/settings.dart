@@ -57,7 +57,7 @@ class _SettingsState extends State<Settings> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: HexColor('#FFFFFF'),
-                        onPrimary: HexColor('#E9FFFB'),
+                        onPrimary: HexColor('#C5F4EB'),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -83,7 +83,7 @@ class _SettingsState extends State<Settings> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: HexColor('#FFFFFF'),
-                        onPrimary: HexColor('#E9FFFB'),
+                        onPrimary: HexColor('#C5F4EB'),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
