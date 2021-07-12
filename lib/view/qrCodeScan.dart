@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:cacao/model/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:i10jan/model/auth.dart';
-import 'package:i10jan/view/component/bottomButtons.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import 'component/bottomButtons.dart';
 
 @immutable
 class ConfirmViewArguments {

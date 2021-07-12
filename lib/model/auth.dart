@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:i10jan/model/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'api.dart';
 
 class Auth {
   Future<bool> isLogged() async {

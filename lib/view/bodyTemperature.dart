@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:i10jan/view/component/backFloatingButton.dart';
-import 'package:i10jan/view/medicalConsultation.dart';
+
+import 'component/backFloatingButton.dart';
+import 'medicalConsultation.dart';
 
 class BodyTemperature extends StatefulWidget {
   @override

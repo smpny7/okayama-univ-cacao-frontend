@@ -1,8 +1,8 @@
+import 'package:cacao/view/component/bottomButtons.dart';
+import 'package:cacao/view/component/helpButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:i10jan/view/component/bottomButtons.dart';
-import 'package:i10jan/view/component/helpButton.dart';
 
 class AuthenticationFailedModal extends StatefulWidget {
   @override

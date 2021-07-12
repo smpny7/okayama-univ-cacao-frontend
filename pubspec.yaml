@@ -1,5 +1,5 @@
-name: i10jan
-description: A new Flutter project.
+name: cacao
+description: Contact-Confirming Application used at Okayama University.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -38,6 +38,7 @@ dependencies:
   webview_flutter: ^2.0.9
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.9.0
   flutter_test:
     sdk: flutter
 
@@ -65,3 +66,8 @@ flutter:
           weight: 300
         - asset: assets/fonts/NotoSansJP-Thin.otf
           weight: 100
+
+flutter_icons:
+  image_path: "assets/icon.png"
+  android: true
+  ios: true

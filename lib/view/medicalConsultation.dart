@@ -1,12 +1,12 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cacao/model/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:i10jan/model/api.dart';
-import 'package:i10jan/view/component/bottomButtons.dart';
 import 'package:vibration/vibration.dart';
 
 import 'component/backFloatingButton.dart';
+import 'component/bottomButtons.dart';
 
 class MedicalConsultationArguments {
   MedicalConsultationArguments(

@@ -1,10 +1,11 @@
+import 'package:cacao/model/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:i10jan/model/auth.dart';
-import 'package:i10jan/view/component/backFloatingButton.dart';
-import 'package:i10jan/view/component/bottomButtons.dart';
+
+import 'component/backFloatingButton.dart';
+import 'component/bottomButtons.dart';
 
 class Settings extends StatefulWidget {
   @override
