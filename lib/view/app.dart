@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:i10jan/view/QRAuthentication.dart';
-import 'package:i10jan/view/qrCodeScan.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,11 +10,16 @@ import '../readStudentID.dart';
 import 'bodyTemperature.dart';
 import 'home.dart';
 import 'medicalConsultation.dart';
+import 'modal/authenticationFailed.dart';
 import 'modal/forceLeave.dart';
 import 'modal/leaveSuccessful.dart';
-import 'modal/authenticationFailed.dart';
 import 'modal/networkError.dart';
+import 'page/contact.dart';
+import 'page/privacyPolicy.dart';
 import 'passwordAuthentication.dart';
+import 'qrAuthentication.dart';
+import 'qrCodeScan.dart';
+import 'settings.dart';
 
 class App extends StatelessWidget {
   final String initialRoute;
@@ -42,10 +45,14 @@ class App extends StatelessWidget {
         '/Home': (BuildContext context) => Home(),
         '/BodyTemperature': (BuildContext context) => BodyTemperature(),
         '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),
+        '/Settings': (BuildContext context) => Settings(),
+        '/PrivacyPolicy': (BuildContext context) => PrivacyPolicy(),
+        '/Contact': (BuildContext context) => Contact(),
         '/AuthenticationFailedModal': (BuildContext context) =>
             AuthenticationFailedModal(),
         '/NetworkErrorModal': (BuildContext context) => NetworkErrorModal(),
-        '/LeaveSuccessfulModal': (BuildContext context) => LeaveSuccessfulModal(),
+        '/LeaveSuccessfulModal': (BuildContext context) =>
+            LeaveSuccessfulModal(),
         '/ForceLeaveModal': (BuildContext context) => ForceLeaveModal(),
       },
     );

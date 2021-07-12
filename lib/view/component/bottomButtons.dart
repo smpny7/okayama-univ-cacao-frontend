@@ -81,7 +81,7 @@ class BottomButtons extends StatelessWidget {
                   padding: MaterialStateProperty.all<EdgeInsets>(
                       EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
                   overlayColor: MaterialStateColor.resolveWith(
-                    (states) => HexColor('#E9FFFB'),
+                    (states) => HexColor('#F4FFFD'),
                   ),
                 ),
                 child: Text(
