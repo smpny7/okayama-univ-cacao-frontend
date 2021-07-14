@@ -29,7 +29,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'i10jan',
+      title: 'cacao',
       theme: ThemeData(
         fontFamily: 'NotoSansJP',
         highlightColor: HexColor('#E9FFFB'),

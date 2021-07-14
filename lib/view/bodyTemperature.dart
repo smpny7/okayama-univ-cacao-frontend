@@ -43,11 +43,14 @@ class _BodyTemperatureState extends State<BodyTemperature> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Container(height: 50 + safePadding),
-                      SvgPicture.asset(
-                        'assets/images/Thermometer.svg',
-                        height: 190,
-                        width: 190,
+                      Container(height: 35 + safePadding),
+                      Container(
+                        padding: EdgeInsets.only(left: 10),
+                        child: SvgPicture.asset(
+                          'assets/images/Thermometer.svg',
+                          height: 230,
+                          width: 230,
+                        ),
                       ),
                       Container(height: 30),
                       Text(

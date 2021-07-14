@@ -21,7 +21,7 @@ class SettingFloatingButton extends StatelessWidget {
               Icons.settings,
               color: HexColor('#FFFFFF'),
             ),
-            backgroundColor: HexColor("#27DAB8"),
+            backgroundColor: HexColor("#FF839C"),
           ),
         ),
       ],

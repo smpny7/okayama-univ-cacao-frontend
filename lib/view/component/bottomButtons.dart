@@ -46,7 +46,8 @@ class BottomButtons extends StatelessWidget {
                                 HexColor('#69F3D8'),
                               ]
                             : [
-                                HexColor('#D6FBF4'),
+                                HexColor('#D6FBF4'
+                              ''),
                                 HexColor('#D6FBF4'),
                               ]),
                     borderRadius: BorderRadius.circular(10),

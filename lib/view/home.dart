@@ -40,12 +40,16 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor('#F4FFFD'),
+      backgroundColor: HexColor('#C1EAEA'),
       body: Column(
         children: [
           Expanded(
             child: Stack(
               children: [
+                Container(
+                  child: SvgPicture.asset('assets/images/HomeBackground.svg'),
+                  transform: Matrix4.translationValues(0.0, -55.0, 0.0),
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -54,10 +58,10 @@ class _HomeState extends State<Home> {
                       width: double.infinity,
                       margin: EdgeInsets.only(left: 30),
                       child: Text(
-                        this.greeting,
+                        clubName,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: HexColor('#3F3F3F'),
+                          color: HexColor('#FFFFFF'),
                           letterSpacing: 2,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -69,10 +73,10 @@ class _HomeState extends State<Home> {
                       width: double.infinity,
                       margin: EdgeInsets.only(left: 30),
                       child: Text(
-                        '$clubNameさん',
+                        '18:00',
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: HexColor('#3F3F3F'),
+                          color: HexColor('#FFFFFF'),
                           letterSpacing: 2,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -80,11 +84,6 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     Container(height: 120),
-                    SvgPicture.asset(
-                      'assets/images/CreditCard.svg',
-                      width: 200,
-                    ),
-                    Container(height: 40),
                     Text(
                       Platform.isAndroid ? '学生証を背面にかざしてください' : '',
                       style: TextStyle(
@@ -100,8 +99,8 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          BottomButtons(!Platform.isAndroid, false, true, 'スキャン', '学籍番号で登録',
-              () => _iOSFeliCaScan(), () => null),
+          BottomButtons(true, false, true, '学生証をスキャン', null,
+              () => _onBottomButtonPressed(), () => null),
         ],
       ),
     );
@@ -114,28 +113,58 @@ class _HomeState extends State<Home> {
   }
 
   _setGreeting() => setState(() => this.greeting = (() {
-    var h = DateTime.now().hour;
-    if (6 <= h && h < 12) return 'おはようございます';
-    if (12 <= h && h < 17) return 'こんにちは';
-    return 'こんばんは';
-  })());
+        var h = DateTime.now().hour;
+        if (6 <= h && h < 12) return 'おはようございます';
+        if (12 <= h && h < 17) return 'こんにちは';
+        return 'こんばんは';
+      })());
 
   _setSafePadding() => Future.delayed(
       Duration.zero,
       () => setState(
           () => this.safePadding = MediaQuery.of(context).padding.top));
 
-  _startAndroidScan() {
+  _onBottomButtonPressed() {
+    if (Platform.isIOS)
+      _iOSFeliCaScan();
+    else if (Platform.isAndroid) {
+      showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+        ),
+        builder: (context) => Container(
+          child: Column(
+            children: [
+              Container(height: 100),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  NfcManager.instance.stopSession();
+                },
+                child: Text('閉じる'),
+              ),
+            ],
+          ),
+        ),
+      );
+      _androidFeliCaScan();
+      print('SCAN');
+    }
+  }
+
+  _androidFeliCaScan() {
     NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
       NfcF? nfcf = NfcF.from(tag);
 
       if (nfcf == null)
         throw ('FeliCaに非対応');
       else {
+        Navigator.of(context).pop();
         var studentID = await NFC().readFelicaOnAndroid(nfcf);
         print(studentID);
         NfcManager.instance.stopSession();
-        Navigator.of(context).pushNamed('/AuthenticationFailedModal');
+        _getStudentStatus(studentID);
       }
     });
   }
