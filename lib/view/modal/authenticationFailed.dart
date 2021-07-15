@@ -39,7 +39,7 @@ class _AuthenticationFailedModalState extends State<AuthenticationFailedModal> {
                     ),
                   ),
                   Container(height: 20),
-                  HelpButton(null, 'お困りの方はこちら', () => null)
+                  HelpButton(null, 'お困りの方はこちら')
                 ],
               ),
             ),

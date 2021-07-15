@@ -36,7 +36,7 @@ class _NetworkErrorModalState extends State<NetworkErrorModal> {
                     ),
                   ),
                   Container(height: 20),
-                  HelpButton(null, 'お困りの方はこちら', () => null)
+                  HelpButton(null, 'お困りの方はこちら')
                 ],
               ),
             ),

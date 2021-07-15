@@ -5,12 +5,10 @@ import 'package:hexcolor/hexcolor.dart';
 class HelpButton extends StatelessWidget {
   final IconData? buttonIcon;
   final String? buttonTitle;
-  final Function buttonFunction;
 
   HelpButton(
     this.buttonIcon,
     this.buttonTitle,
-    this.buttonFunction,
   );
 
   @override
@@ -20,7 +18,7 @@ class HelpButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           TextButton.icon(
-            onPressed: () => buttonFunction,
+            onPressed: () => Navigator.of(context).pushNamed('/Contact'),
             style: ButtonStyle(
               minimumSize: MaterialStateProperty.all(Size.zero),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
