@@ -176,7 +176,7 @@ class _HomeState extends State<Home> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    Container(height: 55),
+                    Container(height: 40),
                     SvgPicture.asset(
                       'assets/images/Card.svg',
                       width: 140,
@@ -190,7 +190,7 @@ class _HomeState extends State<Home> {
                     '閉じる',
                     style: TextStyle(
                       color: HexColor('#000000'),
-                      fontSize: 18,
+                      fontSize: 17,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -204,13 +204,12 @@ class _HomeState extends State<Home> {
                     NfcManager.instance.stopSession();
                   },
                 ),
-                height: 55,
-                width: 320,
+                height: 50,
+                width: 400,
               ),
-              Container(height: 15),
             ],
           ),
-          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 25),
         ),
       );
       _androidFeliCaScan();
