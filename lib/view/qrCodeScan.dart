@@ -88,31 +88,38 @@ class _QRCodeScanState extends State<QRCodeScan> {
       _qrController?.pauseCamera();
       _isQRScanned = true;
 
-      if (type != 'qrcode')
+      if (type != 'qrcode') {
         Navigator.of(context).pushNamed('/AuthenticationFailedModal').then(
-          (value) {
+              (value) {
             _qrController?.resumeCamera();
             _isQRScanned = false;
           },
         );
+        return;
+      }
 
-      if (!RegExp(r'^[0-9a-zA-Z=&]*$').hasMatch(data))
+
+      if (!RegExp(r'^[0-9a-zA-Z=&]*$').hasMatch(data)) {
         Navigator.of(context).pushNamed('/AuthenticationFailedModal').then(
-          (value) {
+              (value) {
             _qrController?.resumeCamera();
             _isQRScanned = false;
           },
         );
+        return;
+      }
 
       var query = Uri.splitQueryString(data);
 
-      if (query['id'] == null || query['password'] == null)
+      if (query['id'] == null || query['password'] == null) {
         Navigator.of(context).pushNamed('/AuthenticationFailedModal').then(
-          (value) {
+              (value) {
             _qrController?.resumeCamera();
             _isQRScanned = false;
           },
         );
+        return;
+      }
 
       try {
         if (await Auth()
@@ -121,13 +128,15 @@ class _QRCodeScanState extends State<QRCodeScan> {
           Navigator.of(context)
               .popUntil(ModalRoute.withName('/QRAuthentication'));
           Navigator.of(context).pushReplacementNamed('/Home');
-        } else
+        } else {
           Navigator.of(context).pushNamed('/AuthenticationFailedModal').then(
-            (value) {
+                (value) {
               _qrController?.resumeCamera();
               _isQRScanned = false;
             },
           );
+          return;
+        }
       } catch ($e) {
         Navigator.of(context).pushNamed('/NetworkErrorModal').then(
           (value) {
