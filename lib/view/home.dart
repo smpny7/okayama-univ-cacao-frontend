@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -8,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import "package:intl/intl.dart";
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
 
-import 'component/bottomButtons.dart';
 import 'component/settingFloatingButton.dart';
 import 'modal/forceLeave.dart';
 
@@ -25,7 +26,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late String clubName = '';
   late String greeting = '';
+  late String time = '--:--';
   late double safePadding = 0;
+  late double height = 0;
 
   @override
   void initState() {
@@ -35,6 +38,9 @@ class _HomeState extends State<Home> {
     _setClubName();
     _setGreeting();
     _setSafePadding();
+    Future.delayed(Duration.zero,
+        () => setState(() => this.height = MediaQuery.of(context).size.width));
+    Timer.periodic(Duration(seconds: 1), _setClock);
   }
 
   @override
@@ -47,13 +53,17 @@ class _HomeState extends State<Home> {
             child: Stack(
               children: [
                 Container(
-                  child: SvgPicture.asset('assets/images/HomeBackground.svg'),
+                  child: SvgPicture.asset(
+                    'assets/images/HomeBackground.svg',
+                    alignment: Alignment.bottomCenter,
+                    fit: BoxFit.cover,
+                  ),
                   transform: Matrix4.translationValues(0.0, -55.0, 0.0),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Container(height: 50 + safePadding),
+                    Container(height: 45 + safePadding),
                     Container(
                       width: double.infinity,
                       margin: EdgeInsets.only(left: 30),
@@ -63,34 +73,23 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                           color: HexColor('#FFFFFF'),
                           letterSpacing: 2,
-                          fontSize: 24,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    Container(height: 10),
                     Container(
                       width: double.infinity,
                       margin: EdgeInsets.only(left: 30),
                       child: Text(
-                        '18:00',
+                        time,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: HexColor('#FFFFFF'),
                           letterSpacing: 2,
-                          fontSize: 24,
+                          fontSize: 70,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ),
-                    Container(height: 120),
-                    Text(
-                      Platform.isAndroid ? '学生証を背面にかざしてください' : '',
-                      style: TextStyle(
-                        color: HexColor('#3F3F3F'),
-                        letterSpacing: 2,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -99,11 +98,40 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          BottomButtons(true, false, true, '学生証をスキャン', null,
-              () => _onBottomButtonPressed(), () => null),
+          SizedBox(
+            child: ElevatedButton(
+              child: Text(
+                '学生証をスキャン',
+                style: TextStyle(
+                  color: HexColor('#FFFFFF'),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 5.0,
+                ),
+              ),
+              onPressed: () => _onBottomButtonPressed(),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.zero,
+                primary: HexColor('#FF839C'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            height: 60,
+            width: 320,
+          ),
+          Container(height: safePadding + 5),
         ],
       ),
     );
+  }
+
+  _setClock(Timer timer) {
+    var now = DateTime.now();
+    var dateFormat = DateFormat('HH:mm');
+    var timeString = dateFormat.format(now);
+    setState(() => this.time = timeString);
   }
 
   _setClubName() async {
@@ -131,26 +159,63 @@ class _HomeState extends State<Home> {
       showModalBottomSheet(
         context: context,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(45)),
         ),
         builder: (context) => Container(
           child: Column(
             children: [
-              Container(height: 100),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  NfcManager.instance.stopSession();
-                },
-                child: Text('閉じる'),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      'スキャンの準備ができました',
+                      style: TextStyle(
+                        color: HexColor('#919191'),
+                        fontSize: 28,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Container(height: 55),
+                    SvgPicture.asset(
+                      'assets/images/Card.svg',
+                      width: 140,
+                    ),
+                  ],
+                ),
               ),
+              Container(
+                child: ElevatedButton(
+                  child: Text(
+                    '閉じる',
+                    style: TextStyle(
+                      color: HexColor('#000000'),
+                      fontSize: 18,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: HexColor('#D4D3D9'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    NfcManager.instance.stopSession();
+                  },
+                ),
+                height: 55,
+                width: 320,
+              ),
+              Container(height: 15),
             ],
           ),
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
         ),
       );
       _androidFeliCaScan();
-      print('SCAN');
-    }
+    } else
+      throw ('対応していないプラットフォームです');
   }
 
   _androidFeliCaScan() {
