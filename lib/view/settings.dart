@@ -112,10 +112,17 @@ class _SettingsState extends State<Settings> {
               ],
             ),
           ),
-          BottomButtons(true, false, true, 'ログアウト', null, () => Auth().logout(),
+          BottomButtons(true, false, true, 'ログアウト', null, () => _logout(),
               () => null),
         ],
       ),
     );
+  }
+
+  _logout() {
+    Auth().logout();
+    Navigator.of(context)
+        .popUntil(ModalRoute.withName('/Home'));
+    Navigator.of(context).pushReplacementNamed('/QRAuthentication');
   }
 }

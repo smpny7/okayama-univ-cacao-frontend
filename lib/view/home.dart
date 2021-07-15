@@ -131,7 +131,7 @@ class _HomeState extends State<Home> {
     var now = DateTime.now();
     var dateFormat = DateFormat('HH:mm');
     var timeString = dateFormat.format(now);
-    setState(() => this.time = timeString);
+    if (this.mounted) setState(() => this.time = timeString);
   }
 
   _setClubName() async {
