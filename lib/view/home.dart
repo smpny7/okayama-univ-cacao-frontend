@@ -24,6 +24,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late bool scannable = false;
   late String clubName = '';
   late String greeting = '';
   late String time = '--:--';
@@ -38,6 +39,7 @@ class _HomeState extends State<Home> {
     _setClubName();
     _setGreeting();
     _setSafePadding();
+    _setScannable();
     Future.delayed(Duration.zero,
         () => setState(() => this.height = MediaQuery.of(context).size.width));
     Timer.periodic(Duration(seconds: 1), _setClock);
@@ -101,7 +103,7 @@ class _HomeState extends State<Home> {
           SizedBox(
             child: ElevatedButton(
               child: Text(
-                '学生証をスキャン',
+                scannable ? '学生証をスキャン' : 'この端末ではスキャンできません',
                 style: TextStyle(
                   color: HexColor('#FFFFFF'),
                   fontSize: 18,
@@ -109,7 +111,7 @@ class _HomeState extends State<Home> {
                   letterSpacing: 5.0,
                 ),
               ),
-              onPressed: () => _onBottomButtonPressed(),
+              onPressed: scannable ? () => _onBottomButtonPressed() : null,
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.zero,
                 primary: HexColor('#FF839C'),
@@ -138,6 +140,11 @@ class _HomeState extends State<Home> {
     var localStorage = await SharedPreferences.getInstance();
     var clubName = await jsonDecode(localStorage.getString('club_name')!);
     setState(() => this.clubName = clubName);
+  }
+
+  _setScannable() async {
+    bool isAvailable = await NfcManager.instance.isAvailable();
+    setState(() => this.scannable = isAvailable);
   }
 
   _setGreeting() => setState(() => this.greeting = (() {
