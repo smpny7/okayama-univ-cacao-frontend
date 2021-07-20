@@ -15,6 +15,7 @@ import 'modal/forceLeave.dart';
 import 'modal/leaveSuccessful.dart';
 import 'modal/networkError.dart';
 import 'page/contact.dart';
+import 'page/guidelinesForHealth.dart';
 import 'page/privacyPolicy.dart';
 import 'passwordAuthentication.dart';
 import 'qrAuthentication.dart';
@@ -47,6 +48,7 @@ class App extends StatelessWidget {
         '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),
         '/Settings': (BuildContext context) => Settings(),
         '/PrivacyPolicy': (BuildContext context) => PrivacyPolicy(),
+        '/GuidelinesForHealth': (BuildContext context) => GuidelinesForHealth(),
         '/Contact': (BuildContext context) => Contact(),
         '/AuthenticationFailedModal': (BuildContext context) =>
             AuthenticationFailedModal(),

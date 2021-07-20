@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'component/backFloatingButton.dart';
+import 'component/guidelineButton.dart';
 import 'medicalConsultation.dart';
 
 class BodyTemperature extends StatefulWidget {
@@ -74,7 +75,8 @@ class _BodyTemperatureState extends State<BodyTemperature> {
                               TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
-                                RegExp(r'[0-9.]')),
+                              RegExp(r'[0-9.]'),
+                            ),
                           ],
                           decoration: new InputDecoration(
                             counterText: '',
@@ -109,6 +111,8 @@ class _BodyTemperatureState extends State<BodyTemperature> {
                           },
                         ),
                       ),
+                      Container(height: 50),
+                      GuidelineButton(null, '入力されたデータについて'),
                       Container(height: 50),
                     ],
                   ),
