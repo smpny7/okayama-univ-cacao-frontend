@@ -13,16 +13,18 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  late double safePadding = 0;
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _setSafePadding();
   }
 
   @override
   Widget build(BuildContext context) {
-    final safePadding = MediaQuery.of(context).padding.top;
-
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
       body: Column(
@@ -78,7 +80,8 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                       ),
-                      onPressed: () => Navigator.of(context).pushNamed('/PrivacyPolicy'),
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed('/PrivacyPolicy'),
                     ),
                     Container(height: 10),
                     ElevatedButton(
@@ -104,7 +107,8 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                       ),
-                      onPressed: () => Navigator.of(context).pushNamed('/Contact'),
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed('/Contact'),
                     ),
                     Container(height: 50),
                   ],
@@ -112,17 +116,21 @@ class _SettingsState extends State<Settings> {
               ],
             ),
           ),
-          BottomButtons(true, false, true, 'ログアウト', null, () => _logout(),
-              () => null),
+          BottomButtons(
+              true, false, true, 'ログアウト', null, () => _logout(), () => null),
         ],
       ),
     );
   }
 
+  _setSafePadding() => Future.delayed(
+      Duration.zero,
+      () => setState(
+          () => this.safePadding = MediaQuery.of(context).padding.top));
+
   _logout() {
     Auth().logout();
-    Navigator.of(context)
-        .popUntil(ModalRoute.withName('/Home'));
+    Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
     Navigator.of(context).pushReplacementNamed('/QRAuthentication');
   }
 }

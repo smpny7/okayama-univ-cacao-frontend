@@ -15,17 +15,19 @@ class BodyTemperature extends StatefulWidget {
 class _BodyTemperatureState extends State<BodyTemperature> {
   bool isValidTemp = false;
   late double bodyTemp;
+  late double safePadding = 0;
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _setSafePadding();
   }
 
   @override
   Widget build(BuildContext context) {
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
-    final safePadding = MediaQuery.of(context).padding.top;
 
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
@@ -180,4 +182,9 @@ class _BodyTemperatureState extends State<BodyTemperature> {
       ),
     );
   }
+
+  _setSafePadding() => Future.delayed(
+      Duration.zero,
+      () => setState(
+          () => this.safePadding = MediaQuery.of(context).padding.top));
 }

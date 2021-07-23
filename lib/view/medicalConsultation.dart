@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cacao/model/api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:vibration/vibration.dart';
@@ -25,13 +26,20 @@ class _MedicalConsultationState extends State<MedicalConsultation> {
   bool _checkBox0 = false;
   bool _checkBox1 = false;
   bool _checkBox2 = false;
+  late double safePadding = 0;
+  late MedicalConsultationArguments args;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _setArgs();
+    _setSafePadding();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final safePadding = MediaQuery.of(context).padding.top;
-    final args = ModalRoute.of(context)!.settings.arguments
-        as MedicalConsultationArguments;
-
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
       body: Column(
@@ -148,6 +156,17 @@ class _MedicalConsultationState extends State<MedicalConsultation> {
       ),
     );
   }
+
+  _setArgs() => Future.delayed(
+      Duration.zero,
+      () => setState(() => this.args = ModalRoute.of(context)!
+          .settings
+          .arguments as MedicalConsultationArguments));
+
+  _setSafePadding() => Future.delayed(
+      Duration.zero,
+      () => setState(
+          () => this.safePadding = MediaQuery.of(context).padding.top));
 
   _enterRoom(args) async {
     AudioCache player = AudioCache();

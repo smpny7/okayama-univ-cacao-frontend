@@ -1,6 +1,7 @@
 import 'package:cacao/view/component/bottomButtons.dart';
 import 'package:cacao/view/component/helpButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -10,10 +11,18 @@ class NetworkErrorModal extends StatefulWidget {
 }
 
 class _NetworkErrorModalState extends State<NetworkErrorModal> {
+  late double safePadding = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _setSafePadding();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final safePadding = MediaQuery.of(context).padding.top;
-
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
       body: Center(
@@ -47,4 +56,9 @@ class _NetworkErrorModalState extends State<NetworkErrorModal> {
       ),
     );
   }
+
+  _setSafePadding() => Future.delayed(
+      Duration.zero,
+          () => setState(
+              () => this.safePadding = MediaQuery.of(context).padding.top));
 }

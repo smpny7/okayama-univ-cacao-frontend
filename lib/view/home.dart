@@ -26,7 +26,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late bool scannable = false;
   late String clubName = '';
-  late String greeting = '';
   late String time = '--:--';
   late double safePadding = 0;
   late double height = 0;
@@ -37,11 +36,9 @@ class _HomeState extends State<Home> {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     _setClubName();
-    _setGreeting();
+    _setHeight();
     _setSafePadding();
     _setScannable();
-    Future.delayed(Duration.zero,
-        () => setState(() => this.height = MediaQuery.of(context).size.width));
     Timer.periodic(Duration(seconds: 1), _setClock);
   }
 
@@ -103,7 +100,7 @@ class _HomeState extends State<Home> {
           SizedBox(
             child: ElevatedButton(
               child: Text(
-                scannable ? '学生証をスキャン' : 'この端末ではスキャンできません',
+                scannable ? '学生証をスキャン' : 'FeliCaに対応していません',
                 style: TextStyle(
                   color: HexColor('#FFFFFF'),
                   fontSize: 18,
@@ -147,12 +144,8 @@ class _HomeState extends State<Home> {
     setState(() => this.scannable = isAvailable);
   }
 
-  _setGreeting() => setState(() => this.greeting = (() {
-        var h = DateTime.now().hour;
-        if (6 <= h && h < 12) return 'おはようございます';
-        if (12 <= h && h < 17) return 'こんにちは';
-        return 'こんばんは';
-      })());
+  _setHeight() => Future.delayed(Duration.zero,
+      () => setState(() => this.height = MediaQuery.of(context).size.width));
 
   _setSafePadding() => Future.delayed(
       Duration.zero,

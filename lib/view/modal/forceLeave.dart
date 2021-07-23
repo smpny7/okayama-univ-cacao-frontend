@@ -1,8 +1,8 @@
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cacao/model/api.dart';
 import 'package:cacao/view/component/bottomButtons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:vibration/vibration.dart';
@@ -20,24 +20,22 @@ class ForceLeaveModal extends StatefulWidget {
 }
 
 class _ForceLeaveModalState extends State<ForceLeaveModal> {
-  String clubName = '';
+  late String clubName = '';
+  late double safePadding = 0;
   late ForceLeaveArguments args;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      final args =
-          ModalRoute.of(context)!.settings.arguments as ForceLeaveArguments;
-      setState(() => this.args = args);
-      _setClubName();
-    });
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _setArgs();
+    _setClubName();
+    _setSafePadding();
   }
 
   @override
   Widget build(BuildContext context) {
-    final safePadding = MediaQuery.of(context).padding.top;
-
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
       body: Center(
@@ -71,10 +69,21 @@ class _ForceLeaveModalState extends State<ForceLeaveModal> {
     );
   }
 
+  _setArgs() => Future.delayed(
+      Duration.zero,
+          () => setState(() => this.args = ModalRoute.of(context)!
+          .settings
+          .arguments as ForceLeaveArguments));
+
   _setClubName() async {
     var clubName = await API().getClubNameFromID(this.args.clubID);
     setState(() => this.clubName = clubName);
   }
+
+  _setSafePadding() => Future.delayed(
+      Duration.zero,
+          () => setState(
+              () => this.safePadding = MediaQuery.of(context).padding.top));
 
   _leaveRoom() async {
     AudioCache player = AudioCache();

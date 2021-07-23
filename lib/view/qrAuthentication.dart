@@ -12,16 +12,18 @@ class QRAuthentication extends StatefulWidget {
 }
 
 class _QRAuthenticationState extends State<QRAuthentication> {
+  late double safePadding = 0;
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _setSafePadding();
   }
 
   @override
   Widget build(BuildContext context) {
-    final safePadding = MediaQuery.of(context).padding.top;
-
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
       body: Center(
@@ -101,4 +103,9 @@ class _QRAuthenticationState extends State<QRAuthentication> {
       },
     );
   }
+
+  _setSafePadding() => Future.delayed(
+      Duration.zero,
+      () => setState(
+          () => this.safePadding = MediaQuery.of(context).padding.top));
 }

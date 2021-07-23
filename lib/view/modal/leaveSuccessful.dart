@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cacao/view/component/bottomButtons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,14 +13,20 @@ class LeaveSuccessfulModal extends StatefulWidget {
 }
 
 class _LeaveSuccessfulModalState extends State<LeaveSuccessfulModal> {
-  String clubName = '';
+  late double safePadding = 0;
+  late String clubName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
+    _setClubName();
+    _setSafePadding();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final safePadding = MediaQuery.of(context).padding.top;
-
-    _setClubName();
-
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
       body: Center(
@@ -58,4 +65,9 @@ class _LeaveSuccessfulModalState extends State<LeaveSuccessfulModal> {
     var clubName = await jsonDecode(localStorage.getString('club_name')!);
     setState(() => this.clubName = clubName);
   }
+
+  _setSafePadding() => Future.delayed(
+      Duration.zero,
+      () => setState(
+          () => this.safePadding = MediaQuery.of(context).padding.top));
 }
