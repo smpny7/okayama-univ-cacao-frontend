@@ -27,9 +27,9 @@
 	<key>NFCReaderUsageDescription</key>
 	<string>学生証を読み取るために使用します</string>
 	<key>NSCameraUsageDescription</key>
-	<string>QRコードを利用してログインできます</string>
+	<string>QRコードを利用してログインを行います</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>岡山大学データサーバーとの通信に利用します</string>
+	<string>データサーバーとの通信に利用します</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
