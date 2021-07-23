@@ -37,6 +37,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
         splashColor: HexColor('#E9FFFB'),
       ),
+      locale:  Locale('ja', 'JP'),
       initialRoute: initialRoute,
       routes: <String, WidgetBuilder>{
         '/QRAuthentication': (BuildContext context) => QRAuthentication(),
