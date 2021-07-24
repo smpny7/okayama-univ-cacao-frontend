@@ -27,7 +27,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'NotoSansJP',
         highlightColor: HexColor('#E9FFFB'),
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.blue,
         splashColor: HexColor('#E9FFFB'),
       ),
       locale: Locale('ja', 'JP'),

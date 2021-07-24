@@ -13,7 +13,7 @@ class BodyTemperature extends StatefulWidget {
 }
 
 class _BodyTemperatureState extends State<BodyTemperature> {
-  bool isValidTemp = false;
+  late bool isValidTemp = false;
   late double bodyTemp;
   late double safePadding = 0;
 
@@ -97,14 +97,16 @@ class _BodyTemperatureState extends State<BodyTemperature> {
                           ),
                           onChanged: (text) {
                             double temp;
-
                             try {
                               temp = double.parse(text);
-                              isValidTemp = (temp >= 35.0 &&
-                                  temp < 38.0 &&
-                                  text.length == 4);
+                              setState(() => this.isValidTemp = (temp >= 35.0 &&
+                                      temp < 38.0 &&
+                                      text.length == 4) ||
+                                  temp == 35 ||
+                                  temp == 36 ||
+                                  temp == 37);
                             } catch (e) {
-                              isValidTemp = false;
+                              setState(() => this.isValidTemp = false);
                             } finally {
                               if (isValidTemp)
                                 setState(
