@@ -251,8 +251,7 @@ class _HomeState extends State<Home> {
   _getStudentStatus(String studentID) async {
     try {
       var res = await API()
-          .getStudentStatus(studentID)
-          .timeout(const Duration(seconds: 5));
+          .getStudentStatus(studentID);
       if (!res['success'])
         Navigator.of(context).pushNamed('/AuthenticationFailedModal');
       if (res['data']['active_club'] == null)
