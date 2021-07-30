@@ -70,6 +70,7 @@ flutter:
           weight: 100
 
 flutter_icons:
-  image_path: "assets/icon.jpg"
+  image_path: "assets/icon.png"
   android: true
   ios: true
+  remove_alpha_ios: true
