@@ -24,7 +24,7 @@ class _WebViewState extends State<Contact> {
         title: Text('お問い合わせ'),
       ),
       body: WebView(
-        initialUrl: 'https://forms.gle/1Q6HNoRccfdQkdQY8',
+        initialUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdS47woHtsbvv6xqjsxJYiej1RjcSDwG9FBWj2ZpEfaQFeD9w/viewform?usp=sf_link',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );
