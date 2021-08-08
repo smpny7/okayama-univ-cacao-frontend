@@ -33,20 +33,6 @@ class API {
     return body;
   }
 
-  // Future<bool> getInRoomID(
-  //     String studentID) async {
-  //   var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/enter');
-  //   Map<String, String> data = {
-  //     'student_id': studentID,
-  //     'body_temp': bodyTemp.toString(),
-  //     'club_id': clubID
-  //   };
-  //   var res = await http.post(fullUrl,
-  //       body: jsonEncode(data), headers: await _setHeaders());
-  //   var body = json.decode(res.body);
-  //   return body['success'] == true;
-  // }
-
   Future<bool> enterRoomAndReturnIsSuccessful(
       String studentID, double bodyTemp) async {
     var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/enter');
@@ -68,12 +54,6 @@ class API {
     var body = json.decode(res.body);
     return body['success'] == true;
   }
-
-  // getData(apiUrl) async {
-  //   var fullUrl = Uri.parse(_url + apiUrl);
-  //   await _getToken();
-  //   return await http.get(fullUrl, headers: _setHeaders());
-  // }
 
   Future<Map<String, String>> _setHeaders() async => {
         'Content-type': 'application/json',

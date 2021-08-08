@@ -4,7 +4,9 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cacao/model/api.dart';
+import 'package:cacao/model/auth.dart';
 import 'package:cacao/model/nfc.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,6 +37,7 @@ class _HomeState extends State<Home> {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
 
+    _certification();
     _setClubName();
     _setHeight();
     _setSafePadding();
@@ -124,6 +127,19 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  _certification() async {
+    final ConnectivityResult connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult != ConnectivityResult.none) {
+      try {
+        await API().getClubName();
+      } catch (e) {
+        Auth().logout();
+        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        Navigator.of(context).pushReplacementNamed('/QRAuthentication');
+      }
+    }
   }
 
   _setClock(Timer timer) {
@@ -250,8 +266,7 @@ class _HomeState extends State<Home> {
 
   _getStudentStatus(String studentID) async {
     try {
-      var res = await API()
-          .getStudentStatus(studentID);
+      var res = await API().getStudentStatus(studentID);
       if (!res['success'])
         Navigator.of(context).pushNamed('/AuthenticationFailedModal');
       if (res['data']['active_club'] == null)
