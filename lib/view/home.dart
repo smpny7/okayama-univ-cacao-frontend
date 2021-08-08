@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                     Container(height: 45 + safePadding),
                     Container(
                       width: double.infinity,
-                      margin: EdgeInsets.only(left: 30),
+                      margin: EdgeInsets.only(left: 30, right: 80),
                       child: Text(
                         clubName,
                         textAlign: TextAlign.left,
