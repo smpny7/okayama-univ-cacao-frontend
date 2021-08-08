@@ -10,6 +10,7 @@ import 'modal/leaveSuccessful.dart';
 import 'modal/networkError.dart';
 import 'page/contact.dart';
 import 'page/guidelinesForHealth.dart';
+import 'page/notice.dart';
 import 'page/privacyPolicy.dart';
 import 'qrAuthentication.dart';
 import 'qrCodeScan.dart';
@@ -39,6 +40,7 @@ class App extends StatelessWidget {
         '/BodyTemperature': (BuildContext context) => BodyTemperature(),
         '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),
         '/Settings': (BuildContext context) => Settings(),
+        '/Notice': (BuildContext context) => Notice(),
         '/PrivacyPolicy': (BuildContext context) => PrivacyPolicy(),
         '/GuidelinesForHealth': (BuildContext context) => GuidelinesForHealth(),
         '/Contact': (BuildContext context) => Contact(),

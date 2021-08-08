@@ -70,6 +70,33 @@ class _SettingsState extends State<Settings> {
                           padding: EdgeInsets.symmetric(vertical: 16),
                           width: 288,
                           child: Text(
+                            'お知らせ・更新情報',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: HexColor('#27DAB8'),
+                              fontSize: 18,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed('/Notice'),
+                    ),
+                    Container(height: 10),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: HexColor('#FFFFFF'),
+                        onPrimary: HexColor('#C5F4EB'),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: Ink(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          width: 288,
+                          child: Text(
                             'プライバシーポリシー',
                             textAlign: TextAlign.center,
                             style: TextStyle(
