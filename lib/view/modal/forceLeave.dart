@@ -8,10 +8,10 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:vibration/vibration.dart';
 
 class ForceLeaveArguments {
-  ForceLeaveArguments({required this.studentID, required this.clubID});
+  ForceLeaveArguments({required this.studentID, required this.roomID});
 
   final String studentID;
-  final String clubID;
+  final String roomID;
 }
 
 class ForceLeaveModal extends StatefulWidget {
@@ -20,7 +20,7 @@ class ForceLeaveModal extends StatefulWidget {
 }
 
 class _ForceLeaveModalState extends State<ForceLeaveModal> {
-  late String clubName = '';
+  late String roomName = '';
   late double safePadding = 0;
   late ForceLeaveArguments args;
 
@@ -30,7 +30,7 @@ class _ForceLeaveModalState extends State<ForceLeaveModal> {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     _setArgs();
-    _setClubName();
+    _setRoomName();
     _setSafePadding();
   }
 
@@ -49,7 +49,7 @@ class _ForceLeaveModalState extends State<ForceLeaveModal> {
                   SvgPicture.asset('assets/images/Triangle.svg'),
                   Container(height: 70),
                   Text(
-                    '$clubName から\n退室します',
+                    '$roomName から\n退室します',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: HexColor('#3F3F3F'),
@@ -75,9 +75,9 @@ class _ForceLeaveModalState extends State<ForceLeaveModal> {
           .settings
           .arguments as ForceLeaveArguments));
 
-  _setClubName() async {
-    var clubName = await API().getClubNameFromID(this.args.clubID);
-    setState(() => this.clubName = clubName);
+  _setRoomName() async {
+    var roomName = await API().getRoomNameFromID(this.args.roomID);
+    setState(() => this.roomName = roomName);
   }
 
   _setSafePadding() => Future.delayed(
@@ -95,7 +95,7 @@ class _ForceLeaveModalState extends State<ForceLeaveModal> {
       if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
       player.play('sounds/success.mp3');
       Navigator.of(context).pushReplacementNamed('/BodyTemperature',
-          arguments: this.args.clubID);
+          arguments: this.args.roomID);
     }
   }
 }

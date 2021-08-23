@@ -49,9 +49,9 @@ class Auth {
       localStorage.setString('access_token', json.encode(body['access_token']));
       localStorage.setString(
           'refresh_token', json.encode(body['refresh_token']));
-      print(await API().getClubName());
+      print(await API().getRoomName());
       localStorage.setString(
-          'club_name', json.encode(await API().getClubName()));
+          'room_name', json.encode(await API().getRoomName()));
       return true;
     }
   }
@@ -60,7 +60,7 @@ class Auth {
     var localStorage = await SharedPreferences.getInstance();
     localStorage.remove('access_token');
     localStorage.remove('refresh_token');
-    localStorage.remove('club_name');
+    localStorage.remove('room_name');
     print('logout');
   }
 }

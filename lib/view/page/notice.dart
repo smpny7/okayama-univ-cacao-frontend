@@ -24,7 +24,7 @@ class _WebViewState extends State<Notice> {
         title: Text('お知らせ・更新情報'),
       ),
       body: WebView(
-        initialUrl: 'https://cacao-app.com/notice',
+        initialUrl: 'https://cacao-app.com/information',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

@@ -14,14 +14,14 @@ class LeaveSuccessfulModal extends StatefulWidget {
 
 class _LeaveSuccessfulModalState extends State<LeaveSuccessfulModal> {
   late double safePadding = 0;
-  late String clubName = '';
+  late String roomName = '';
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-    _setClubName();
+    _setRoomName();
     _setSafePadding();
   }
 
@@ -40,7 +40,7 @@ class _LeaveSuccessfulModalState extends State<LeaveSuccessfulModal> {
                   SvgPicture.asset('assets/images/Logout.svg'),
                   Container(height: 70),
                   Text(
-                    '$clubName から\n退室しました',
+                    '$roomName から\n退室しました',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: HexColor('#3F3F3F'),
@@ -60,10 +60,10 @@ class _LeaveSuccessfulModalState extends State<LeaveSuccessfulModal> {
     );
   }
 
-  _setClubName() async {
+  _setRoomName() async {
     var localStorage = await SharedPreferences.getInstance();
-    var clubName = await jsonDecode(localStorage.getString('club_name')!);
-    setState(() => this.clubName = clubName);
+    var roomName = await jsonDecode(localStorage.getString('room_name')!);
+    setState(() => this.roomName = roomName);
   }
 
   _setSafePadding() => Future.delayed(

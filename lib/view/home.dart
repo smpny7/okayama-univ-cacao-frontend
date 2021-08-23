@@ -27,7 +27,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late bool scannable = false;
-  late String clubName = '';
+  late String roomName = '';
   late String time = '--:--';
   late double safePadding = 0;
   late double height = 0;
@@ -37,8 +37,9 @@ class _HomeState extends State<Home> {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
 
+    _copyLocalStorageString();
     _certification();
-    _setClubName();
+    _setRoomName();
     _setHeight();
     _setSafePadding();
     _setScannable();
@@ -70,7 +71,7 @@ class _HomeState extends State<Home> {
                       width: double.infinity,
                       margin: EdgeInsets.only(left: 30, right: 80),
                       child: Text(
-                        clubName,
+                        roomName,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: HexColor('#FFFFFF'),
@@ -130,10 +131,11 @@ class _HomeState extends State<Home> {
   }
 
   _certification() async {
-    final ConnectivityResult connectivityResult = await Connectivity().checkConnectivity();
+    final ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
     if (connectivityResult != ConnectivityResult.none) {
       try {
-        await API().getClubName();
+        await API().getRoomName();
       } catch (e) {
         Auth().logout();
         Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
@@ -149,10 +151,18 @@ class _HomeState extends State<Home> {
     if (this.mounted) setState(() => this.time = timeString);
   }
 
-  _setClubName() async {
+  _setRoomName() async {
     var localStorage = await SharedPreferences.getInstance();
-    var clubName = await jsonDecode(localStorage.getString('club_name')!);
-    setState(() => this.clubName = clubName);
+    var roomName = await jsonDecode(localStorage.getString('room_name')!);
+    setState(() => this.roomName = roomName);
+  }
+
+  // TMP
+  _copyLocalStorageString() async {
+    var localStorage = await SharedPreferences.getInstance();
+    var clubName = localStorage.getString('club_name');
+    if (clubName != null)
+      localStorage.setString('room_name', clubName);
   }
 
   _setScannable() async {
@@ -269,13 +279,13 @@ class _HomeState extends State<Home> {
       var res = await API().getStudentStatus(studentID);
       if (!res['success'])
         Navigator.of(context).pushNamed('/AuthenticationFailedModal');
-      if (res['data']['active_club'] == null)
+      if (res['data']['active_room'] == null)
         Navigator.of(context)
             .pushNamed('/BodyTemperature', arguments: studentID);
       else if (!res['data']['is_my_room'])
         Navigator.of(context).pushNamed('/ForceLeaveModal',
             arguments: ForceLeaveArguments(
-                studentID: studentID, clubID: res['data']['active_club']));
+                studentID: studentID, roomID: res['data']['active_room']));
       else
         _leaveRoom(studentID);
     } catch (e) {

@@ -6,17 +6,17 @@ import 'package:http/http.dart' as http;
 import 'auth.dart';
 
 class API {
-  Future<String> getClubName() async {
-    var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/getClubName');
+  Future<String> getRoomName() async {
+    var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/getRoomName');
     var res = await http.get(fullUrl, headers: await _setHeaders());
     var body = json.decode(res.body);
     if (body['success']) return body['data'];
     throw ('Authentication Failed.');
   }
 
-  Future<String> getClubNameFromID(String clubID) async {
-    var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/getClubNameFromID');
-    Map<String, String> data = {'club_id': clubID};
+  Future<String> getRoomNameFromID(String roomID) async {
+    var fullUrl = Uri.parse(dotenv.env['URL']! + '/api/getRoomNameFromID');
+    Map<String, String> data = {'room_id': roomID};
     var res = await http.post(fullUrl,
         body: jsonEncode(data), headers: await _setHeaders());
     var body = json.decode(res.body);
