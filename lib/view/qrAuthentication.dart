@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'component/bottomButtons.dart';
 
-class QRAuthentication extends StatefulWidget {
+class QRAuthentication extends HookConsumerWidget {
   @override
-  _QRAuthenticationState createState() => _QRAuthenticationState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final safePadding = useState(0.0);
 
-class _QRAuthenticationState extends State<QRAuthentication> {
-  late double safePadding = 0;
+    useEffect(() {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+      Future.delayed(Duration.zero,
+          () => safePadding.value = MediaQuery.of(context).padding.top);
+      return null;
+    }, const []);
 
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIOverlays([]);
-
-    _setSafePadding();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor('#F4FFFD'),
       body: Center(
@@ -33,7 +29,7 @@ class _QRAuthenticationState extends State<QRAuthentication> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(height: 60 + safePadding),
+                  Container(height: 60 + safePadding.value),
                   SvgPicture.asset('assets/images/PinCode.svg'),
                   Container(height: 30),
                   Text(
@@ -63,9 +59,8 @@ class _QRAuthenticationState extends State<QRAuthentication> {
               true,
               '次へ',
               'IDとパスワードで認証',
-              () => _createQRCodeScanner(),
-              () => Navigator.of(context)
-                  .pushReplacementNamed('/PasswordAuthentication'),
+              () => _createQRCodeScanner(context),
+              () => null,
             ),
           ],
         ),
@@ -73,7 +68,7 @@ class _QRAuthenticationState extends State<QRAuthentication> {
     );
   }
 
-  _createQRCodeScanner() async {
+  _createQRCodeScanner(BuildContext context) async {
     if (await Permission.camera.request().isGranted)
       Navigator.of(context).pushNamed('/QRCodeScan');
     else
@@ -103,9 +98,4 @@ class _QRAuthenticationState extends State<QRAuthentication> {
       },
     );
   }
-
-  _setSafePadding() => Future.delayed(
-      Duration.zero,
-      () => setState(
-          () => this.safePadding = MediaQuery.of(context).padding.top));
 }

@@ -80,7 +80,7 @@ class _QRCodeScanState extends State<QRCodeScan> {
   void _onQRViewCreated(QRViewController qrController) {
     setState(() => _qrController = qrController);
     qrController.scannedDataStream.listen((scanData) =>
-        _transitionToNextScreen(describeEnum(scanData.format), scanData.code));
+        _transitionToNextScreen(describeEnum(scanData.format), scanData.code!));
   }
 
   Future<void> _transitionToNextScreen(String type, String data) async {

@@ -19,6 +19,7 @@ version: 1.0.3+8
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
@@ -26,18 +27,21 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  flutter_hooks: ^0.18.0
+  hooks_riverpod: ^2.0.0-dev.5
+  freezed: ^2.0.2
   cupertino_icons: ^1.0.2
   hexcolor: ^2.0.4
-  flutter_svg: ^0.22.0
-  audioplayers: ^0.19.1
+  flutter_svg: ^1.0.3
+  audioplayers: ^0.20.1
   vibration: ^1.7.4-nullsafety.0
   nfc_manager: ^3.1.0
-  qr_code_scanner: ^0.5.1
-  permission_handler: ^8.1.2
+  qr_code_scanner: ^0.7.0
+  permission_handler: ^9.2.0
   flutter_dotenv: ^5.0.0
   http: ^0.13.3
   shared_preferences: ^2.0.6
-  webview_flutter: ^2.0.9
+  webview_flutter: ^3.0.2
   connectivity: ^3.0.6
 
 dev_dependencies:
