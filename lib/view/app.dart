@@ -13,8 +13,8 @@ import 'page/contact.dart';
 import 'page/guidelinesForHealth.dart';
 import 'page/notice.dart';
 import 'page/privacyPolicy.dart';
-import '../ui/pages/room_authentication.dart';
-import '../ui/pages/qrcode_scan_view.dart';
+import '../ui/pages/startup_view.dart';
+import '../ui/pages/authentication_view.dart';
 import 'settings.dart';
 
 class App extends StatelessWidget {
@@ -36,8 +36,8 @@ class App extends StatelessWidget {
       initialRoute: initialRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       routes: <String, WidgetBuilder>{
-        '/QRAuthentication': (BuildContext context) => RoomAuthentication(),
-        '/QRCodeScan': (BuildContext context) => QRCodeScanView(),
+        '/StartupView': (BuildContext context) => StartupView(),
+        '/AuthenticationView': (BuildContext context) => AuthenticationView(),
         '/Home': (BuildContext context) => Home(),
         '/BodyTemperature': (BuildContext context) => BodyTemperature(),
         '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),

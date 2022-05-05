@@ -1,3 +1,4 @@
+import 'package:cacao/provider/startup_provider.dart';
 import 'package:cacao/ui/atoms/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,17 +6,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-class RoomAuthentication extends HookConsumerWidget {
+class StartupView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final safePadding = useState(0.0);
+    final _safePadding = useState(0.0);
 
     useEffect(() {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
       Future.delayed(Duration.zero,
-          () => safePadding.value = MediaQuery.of(context).padding.top);
+          () => _safePadding.value = MediaQuery.of(context).padding.top);
       return null;
     }, const []);
 
@@ -62,7 +62,6 @@ class RoomAuthentication extends HookConsumerWidget {
                       '学務課より配布された\nQRコードを読み取ってください',
                       style: TextStyle(
                         color: HexColor('#FFFFFF'),
-                        fontFamily: 'NotoSansJP',
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
                         height: 1.6,
@@ -73,45 +72,18 @@ class RoomAuthentication extends HookConsumerWidget {
                   Container(height: 120),
                   Button(
                     text: 'QRコードのスキャン',
-                    onTapped: () => _createQRCodeScanner(context),
+                    onTapped: () => ref
+                        .read(startupProvider.notifier)
+                        .scanAuthenticationCode(),
                     isPrimaryColor: false,
                   ),
-                  Container(height: safePadding.value / 2 + 30),
+                  Container(height: _safePadding.value / 2 + 30),
                 ],
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  _createQRCodeScanner(BuildContext context) async {
-    if (await Permission.camera.request().isGranted)
-      Navigator.of(context).pushNamed('/QRCodeScan');
-    else
-      await showRequestPermissionDialog(context);
-  }
-
-  Future<void> showRequestPermissionDialog(BuildContext context) async {
-    await showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('カメラを許可してください'),
-          content: const Text('QRコードを読み取る為にカメラを利用します'),
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('キャンセル'),
-            ),
-            ElevatedButton(
-              onPressed: () async => openAppSettings(),
-              child: const Text('設定'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

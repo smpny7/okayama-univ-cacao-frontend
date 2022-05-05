@@ -139,7 +139,7 @@ class _HomeState extends State<Home> {
       } catch (e) {
         Auth().logout();
         Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
-        Navigator.of(context).pushReplacementNamed('/QRAuthentication');
+        Navigator.of(context).pushReplacementNamed('/StartupView');
       }
     }
   }

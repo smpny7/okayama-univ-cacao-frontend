@@ -1,6 +1,6 @@
 import 'package:cacao/get_it.dart';
 import 'package:cacao/model/auth.dart';
-import 'package:cacao/state/qrcode_scan_state.dart';
+import 'package:cacao/state/authentication_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,24 +8,24 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:riverpod/riverpod.dart';
 
-class QRCodeScanViewModel extends StateNotifier<QRCodeScanState> {
-  QRCodeScanViewModel() : super(const QRCodeScanState());
+class AuthenticationViewModel extends StateNotifier<AuthenticationState> {
+  AuthenticationViewModel() : super(const AuthenticationState());
 
   final NavigationService _navigationService = locator<NavigationService>();
 
   void setupCamera(QRViewController qrViewController) {
-    state = QRCodeScanState(qrViewController: qrViewController);
+    state = AuthenticationState(qrViewController: qrViewController);
     state.qrViewController?.scannedDataStream.listen(
         (scanData) => _onScanned(describeEnum(scanData.format), scanData.code));
   }
 
   void _pauseCamera() {
-    state = QRCodeScanState(isPausingCamera: true);
+    state = AuthenticationState(isPausingCamera: true);
     state.qrViewController?.pauseCamera();
   }
 
   void _resumeCamera() {
-    state = QRCodeScanState(isPausingCamera: false);
+    state = AuthenticationState(isPausingCamera: false);
     state.qrViewController?.resumeCamera();
   }
 
@@ -65,7 +65,7 @@ class QRCodeScanViewModel extends StateNotifier<QRCodeScanState> {
   void goBack() => _navigationService.goBack();
 
   void _navigateToHome() {
-    _navigationService.popUntil('/QRAuthentication');
+    _navigationService.popUntil('/StartupView');
     _navigationService.pushReplacementNamed('/Home');
   }
 

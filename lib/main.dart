@@ -10,7 +10,7 @@ Future<void> main() async {
   await dotenv.load(fileName: ".env");
   final bool isLogged = await Auth().isLogged();
   final App app = App(
-    initialRoute: isLogged ? '/Home' : '/QRAuthentication',
+    initialRoute: isLogged ? '/Home' : '/StartupView',
   );
 
   locator.registerLazySingleton(() => NavigationService());

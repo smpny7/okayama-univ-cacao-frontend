@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'qrcode_scan_state.dart';
+part of 'authentication_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,31 +15,31 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$QRCodeScanState {
+mixin _$AuthenticationState {
   bool get isPausingCamera => throw _privateConstructorUsedError;
   QRViewController? get qrViewController => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $QRCodeScanStateCopyWith<QRCodeScanState> get copyWith =>
+  $AuthenticationStateCopyWith<AuthenticationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $QRCodeScanStateCopyWith<$Res> {
-  factory $QRCodeScanStateCopyWith(
-          QRCodeScanState value, $Res Function(QRCodeScanState) then) =
-      _$QRCodeScanStateCopyWithImpl<$Res>;
+abstract class $AuthenticationStateCopyWith<$Res> {
+  factory $AuthenticationStateCopyWith(
+          AuthenticationState value, $Res Function(AuthenticationState) then) =
+      _$AuthenticationStateCopyWithImpl<$Res>;
   $Res call({bool isPausingCamera, QRViewController? qrViewController});
 }
 
 /// @nodoc
-class _$QRCodeScanStateCopyWithImpl<$Res>
-    implements $QRCodeScanStateCopyWith<$Res> {
-  _$QRCodeScanStateCopyWithImpl(this._value, this._then);
+class _$AuthenticationStateCopyWithImpl<$Res>
+    implements $AuthenticationStateCopyWith<$Res> {
+  _$AuthenticationStateCopyWithImpl(this._value, this._then);
 
-  final QRCodeScanState _value;
+  final AuthenticationState _value;
   // ignore: unused_field
-  final $Res Function(QRCodeScanState) _then;
+  final $Res Function(AuthenticationState) _then;
 
   @override
   $Res call({
@@ -60,32 +60,32 @@ class _$QRCodeScanStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$QRCodeScanStateCopyWith<$Res>
-    implements $QRCodeScanStateCopyWith<$Res> {
-  factory _$QRCodeScanStateCopyWith(
-          _QRCodeScanState value, $Res Function(_QRCodeScanState) then) =
-      __$QRCodeScanStateCopyWithImpl<$Res>;
+abstract class _$AuthenticationStateCopyWith<$Res>
+    implements $AuthenticationStateCopyWith<$Res> {
+  factory _$AuthenticationStateCopyWith(_AuthenticationState value,
+          $Res Function(_AuthenticationState) then) =
+      __$AuthenticationStateCopyWithImpl<$Res>;
   @override
   $Res call({bool isPausingCamera, QRViewController? qrViewController});
 }
 
 /// @nodoc
-class __$QRCodeScanStateCopyWithImpl<$Res>
-    extends _$QRCodeScanStateCopyWithImpl<$Res>
-    implements _$QRCodeScanStateCopyWith<$Res> {
-  __$QRCodeScanStateCopyWithImpl(
-      _QRCodeScanState _value, $Res Function(_QRCodeScanState) _then)
-      : super(_value, (v) => _then(v as _QRCodeScanState));
+class __$AuthenticationStateCopyWithImpl<$Res>
+    extends _$AuthenticationStateCopyWithImpl<$Res>
+    implements _$AuthenticationStateCopyWith<$Res> {
+  __$AuthenticationStateCopyWithImpl(
+      _AuthenticationState _value, $Res Function(_AuthenticationState) _then)
+      : super(_value, (v) => _then(v as _AuthenticationState));
 
   @override
-  _QRCodeScanState get _value => super._value as _QRCodeScanState;
+  _AuthenticationState get _value => super._value as _AuthenticationState;
 
   @override
   $Res call({
     Object? isPausingCamera = freezed,
     Object? qrViewController = freezed,
   }) {
-    return _then(_QRCodeScanState(
+    return _then(_AuthenticationState(
       isPausingCamera: isPausingCamera == freezed
           ? _value.isPausingCamera
           : isPausingCamera // ignore: cast_nullable_to_non_nullable
@@ -100,8 +100,8 @@ class __$QRCodeScanStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_QRCodeScanState implements _QRCodeScanState {
-  const _$_QRCodeScanState(
+class _$_AuthenticationState implements _AuthenticationState {
+  const _$_AuthenticationState(
       {this.isPausingCamera = false, this.qrViewController = null});
 
   @override
@@ -113,14 +113,14 @@ class _$_QRCodeScanState implements _QRCodeScanState {
 
   @override
   String toString() {
-    return 'QRCodeScanState(isPausingCamera: $isPausingCamera, qrViewController: $qrViewController)';
+    return 'AuthenticationState(isPausingCamera: $isPausingCamera, qrViewController: $qrViewController)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QRCodeScanState &&
+            other is _AuthenticationState &&
             const DeepCollectionEquality()
                 .equals(other.isPausingCamera, isPausingCamera) &&
             const DeepCollectionEquality()
@@ -135,14 +135,15 @@ class _$_QRCodeScanState implements _QRCodeScanState {
 
   @JsonKey(ignore: true)
   @override
-  _$QRCodeScanStateCopyWith<_QRCodeScanState> get copyWith =>
-      __$QRCodeScanStateCopyWithImpl<_QRCodeScanState>(this, _$identity);
+  _$AuthenticationStateCopyWith<_AuthenticationState> get copyWith =>
+      __$AuthenticationStateCopyWithImpl<_AuthenticationState>(
+          this, _$identity);
 }
 
-abstract class _QRCodeScanState implements QRCodeScanState {
-  const factory _QRCodeScanState(
+abstract class _AuthenticationState implements AuthenticationState {
+  const factory _AuthenticationState(
       {final bool isPausingCamera,
-      final QRViewController? qrViewController}) = _$_QRCodeScanState;
+      final QRViewController? qrViewController}) = _$_AuthenticationState;
 
   @override
   bool get isPausingCamera => throw _privateConstructorUsedError;
@@ -150,6 +151,6 @@ abstract class _QRCodeScanState implements QRCodeScanState {
   QRViewController? get qrViewController => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QRCodeScanStateCopyWith<_QRCodeScanState> get copyWith =>
+  _$AuthenticationStateCopyWith<_AuthenticationState> get copyWith =>
       throw _privateConstructorUsedError;
 }

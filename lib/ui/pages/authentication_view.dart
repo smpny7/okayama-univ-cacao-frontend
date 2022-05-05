@@ -1,4 +1,4 @@
-import 'package:cacao/provider/qrcode_scan_provider.dart';
+import 'package:cacao/provider/authentication_provider.dart';
 import 'package:cacao/ui/atoms/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,16 +7,17 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRCodeScanView extends HookConsumerWidget {
+class AuthenticationView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _qrCodeScanProvider = ref.read(qrCodeScanViewModelProvider.notifier);
-    final safePadding = useState(0.0);
+    final _qrCodeScanProvider =
+        ref.watch(authenticationViewModelProvider.notifier);
+    final _safePadding = useState(0.0);
 
     useEffect(() {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
       Future.delayed(Duration.zero,
-          () => safePadding.value = MediaQuery.of(context).padding.top);
+          () => _safePadding.value = MediaQuery.of(context).padding.top);
       return _qrCodeScanProvider.disposeCamera;
     }, const []);
 
@@ -52,7 +53,7 @@ class QRCodeScanView extends HookConsumerWidget {
             text: 'キャンセル',
             onTapped: () => _qrCodeScanProvider.goBack(),
           ),
-          Container(height: safePadding.value / 2 + 30),
+          Container(height: _safePadding.value / 2 + 30),
         ],
       ),
     );
