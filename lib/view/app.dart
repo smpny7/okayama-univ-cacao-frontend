@@ -1,3 +1,4 @@
+import 'package:cacao/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -12,8 +13,8 @@ import 'page/contact.dart';
 import 'page/guidelinesForHealth.dart';
 import 'page/notice.dart';
 import 'page/privacyPolicy.dart';
-import 'qrAuthentication.dart';
-import 'qrCodeScan.dart';
+import '../ui/pages/room_authentication.dart';
+import '../ui/pages/qrcode_scan_view.dart';
 import 'settings.dart';
 
 class App extends StatelessWidget {
@@ -27,15 +28,16 @@ class App extends StatelessWidget {
       title: 'cacao',
       theme: ThemeData(
         fontFamily: 'NotoSansJP',
-        highlightColor: HexColor('#E9FFFB'),
+        highlightColor: HexColor('#FFF0F2'),
         primarySwatch: Colors.blue,
-        splashColor: HexColor('#E9FFFB'),
+        splashColor: HexColor('#FFF0F2'),
       ),
       locale: Locale('ja', 'JP'),
       initialRoute: initialRoute,
+      navigatorKey: locator<NavigationService>().navigatorKey,
       routes: <String, WidgetBuilder>{
-        '/QRAuthentication': (BuildContext context) => QRAuthentication(),
-        '/QRCodeScan': (BuildContext context) => QRCodeScan(),
+        '/QRAuthentication': (BuildContext context) => RoomAuthentication(),
+        '/QRCodeScan': (BuildContext context) => QRCodeScanView(),
         '/Home': (BuildContext context) => Home(),
         '/BodyTemperature': (BuildContext context) => BodyTemperature(),
         '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),

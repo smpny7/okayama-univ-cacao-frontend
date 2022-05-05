@@ -1,3 +1,4 @@
+import 'package:cacao/ui/atoms/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,9 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'component/bottomButtons.dart';
-
-class QRAuthentication extends HookConsumerWidget {
+class RoomAuthentication extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final safePadding = useState(0.0);
@@ -21,21 +20,36 @@ class QRAuthentication extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-      backgroundColor: HexColor('#F4FFFD'),
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(height: 60 + safePadding.value),
-                  SvgPicture.asset('assets/images/PinCode.svg'),
-                  Container(height: 30),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: FractionalOffset.centerLeft,
+            end: FractionalOffset.centerRight,
+            colors: [
+              HexColor('#FF598B'),
+              HexColor('#FF8D86'),
+            ],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SvgPicture.asset('assets/images/code.svg'),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
                   Text(
                     '所属団体を認証します',
                     style: TextStyle(
-                      color: HexColor('#3F3F3F'),
+                      color: HexColor('#FFFFFF'),
                       letterSpacing: 1,
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -43,26 +57,30 @@ class QRAuthentication extends HookConsumerWidget {
                   ),
                   Container(height: 30),
                   Container(
-                    padding: EdgeInsets.only(right: 45),
+                    padding: EdgeInsets.only(right: 40),
                     child: Text(
                       '学務課より配布された\nQRコードを読み取ってください',
                       style: TextStyle(
-                          fontFamily: 'NotoSansJP', fontSize: 17, height: 1.6),
+                        color: HexColor('#FFFFFF'),
+                        fontFamily: 'NotoSansJP',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                        height: 1.6,
+                        letterSpacing: 1.5,
+                      ),
                     ),
                   ),
+                  Container(height: 120),
+                  Button(
+                    text: 'QRコードのスキャン',
+                    onTapped: () => _createQRCodeScanner(context),
+                    isPrimaryColor: false,
+                  ),
+                  Container(height: safePadding.value / 2 + 30),
                 ],
               ),
-            ),
-            BottomButtons(
-              true,
-              false,
-              true,
-              '次へ',
-              'IDとパスワードで認証',
-              () => _createQRCodeScanner(context),
-              () => null,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -88,9 +106,7 @@ class QRAuthentication extends HookConsumerWidget {
               child: const Text('キャンセル'),
             ),
             ElevatedButton(
-              onPressed: () async {
-                openAppSettings();
-              },
+              onPressed: () async => openAppSettings(),
               child: const Text('設定'),
             ),
           ],
