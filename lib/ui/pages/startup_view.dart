@@ -69,7 +69,7 @@ class StartupView extends HookConsumerWidget {
                       ),
                     ),
                   ),
-                  Container(height: 120),
+                  Container(height: _safePadding.value / 2 + 60),
                   Button(
                     text: 'QRコードのスキャン',
                     onTapped: () => ref

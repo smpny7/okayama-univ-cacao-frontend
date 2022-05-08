@@ -157,7 +157,7 @@ class _SettingsState extends State<Settings> {
 
   _logout() {
     Auth().logout();
-    Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+    Navigator.of(context).popUntil(ModalRoute.withName('/HomeView'));
     Navigator.of(context).pushReplacementNamed('/StartupView');
   }
 }

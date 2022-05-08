@@ -1,5 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cacao/model/api.dart';
+import 'package:cacao/repository/remote_data_source/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -174,7 +174,7 @@ class _MedicalConsultationState extends State<MedicalConsultation> {
         .enterRoomAndReturnIsSuccessful(args.studentID, args.bodyTemp)) {
       player.play('sounds/success.mp3');
       if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
-      Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+      Navigator.of(context).popUntil(ModalRoute.withName('/HomeView'));
     } else {
       Navigator.of(context).pushNamed('/NetworkErrorModal');
     }

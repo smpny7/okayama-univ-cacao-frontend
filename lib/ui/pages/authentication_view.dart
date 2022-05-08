@@ -10,15 +10,14 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class AuthenticationView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _qrCodeScanProvider =
-        ref.watch(authenticationViewModelProvider.notifier);
+    final _authenticationProvider = ref.watch(authenticationProvider.notifier);
     final _safePadding = useState(0.0);
 
     useEffect(() {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
       Future.delayed(Duration.zero,
           () => _safePadding.value = MediaQuery.of(context).padding.top);
-      return _qrCodeScanProvider.disposeCamera;
+      return _authenticationProvider.disposeCamera;
     }, const []);
 
     return Scaffold(
@@ -29,7 +28,7 @@ class AuthenticationView extends HookConsumerWidget {
             flex: 4,
             child: QRView(
               key: GlobalKey(debugLabel: 'QR'),
-              onQRViewCreated: _qrCodeScanProvider.setupCamera,
+              onQRViewCreated: _authenticationProvider.setupCamera,
               overlay: QrScannerOverlayShape(
                 borderColor: Colors.green,
                 borderRadius: 16,
@@ -51,7 +50,7 @@ class AuthenticationView extends HookConsumerWidget {
           Container(height: 35),
           Button(
             text: 'キャンセル',
-            onTapped: () => _qrCodeScanProvider.goBack(),
+            onTapped: () => _authenticationProvider.goBack(),
           ),
           Container(height: _safePadding.value / 2 + 30),
         ],

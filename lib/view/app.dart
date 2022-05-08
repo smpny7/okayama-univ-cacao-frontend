@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'bodyTemperature.dart';
-import 'home.dart';
+import '../ui/pages/home_view.dart';
 import 'medicalConsultation.dart';
 import 'modal/authenticationFailed.dart';
 import 'modal/forceLeave.dart';
@@ -38,7 +38,7 @@ class App extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/StartupView': (BuildContext context) => StartupView(),
         '/AuthenticationView': (BuildContext context) => AuthenticationView(),
-        '/Home': (BuildContext context) => Home(),
+        '/HomeView': (BuildContext context) => HomeView(),
         '/BodyTemperature': (BuildContext context) => BodyTemperature(),
         '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),
         '/Settings': (BuildContext context) => Settings(),

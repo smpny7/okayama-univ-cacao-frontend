@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:cacao/get_it.dart';
-import 'package:cacao/model/auth.dart';
+import 'package:cacao/repository/local_data_source/shared_preferences.dart';
+import 'package:cacao/repository/remote_data_source/api.dart';
 import 'package:cacao/state/authentication_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart' as http;
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -52,8 +57,7 @@ class AuthenticationViewModel extends StateNotifier<AuthenticationState> {
     }
 
     try {
-      if (await Auth()
-          .loginAndReturnIsSuccessful(query['id']!, query['password']!))
+      if (await _loginAndReturnIsSuccessful(query['id']!, query['password']!))
         _navigateToHome();
       else
         _showAuthenticationFailedToast();
@@ -64,9 +68,42 @@ class AuthenticationViewModel extends StateNotifier<AuthenticationState> {
 
   void goBack() => _navigationService.goBack();
 
+  Future<bool> _loginAndReturnIsSuccessful(
+      String username, String password) async {
+    if (!RegExp(r'^[0-9a-zA-Z]*$').hasMatch(username) ||
+        !RegExp(r'^[0-9a-zA-Z]*$').hasMatch(password)) return false;
+
+    var data = {
+      'grant_type': 'password',
+      'client_id': '1',
+      'client_secret': dotenv.env['CLIENT_SECRET'],
+      'username': username,
+      'password': password,
+      'scope': '*'
+    };
+
+    var url = Uri.parse(dotenv.env['URL']! + '/oauth/token');
+    var res = await http.post(url, body: jsonEncode(data), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    });
+    var body = json.decode(res.body);
+
+    if (body['access_token'] == null)
+      return false;
+    else {
+      var sharedPreferences = await SharedPreferencesRepository().init();
+      sharedPreferences.setAccessToken(json.encode(body['access_token']));
+      sharedPreferences.setRefreshToken(json.encode(body['refresh_token']));
+      var roomName = await API().getRoomName();
+      sharedPreferences.setRoomName(json.encode(roomName));
+      return true;
+    }
+  }
+
   void _navigateToHome() {
     _navigationService.popUntil('/StartupView');
-    _navigationService.pushReplacementNamed('/Home');
+    _navigationService.pushReplacementNamed('/HomeView');
   }
 
   Future<void> _showAuthenticationFailedToast() async {

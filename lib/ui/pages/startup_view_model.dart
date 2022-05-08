@@ -9,6 +9,7 @@ class StartupViewModel extends StateNotifier<StartupState> {
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future<void> scanAuthenticationCode() async {
+    // _navigationService.pushNamed('/HomeView');
     if (await Permission.camera.request().isGranted)
       _navigateToAuthenticationView();
     else

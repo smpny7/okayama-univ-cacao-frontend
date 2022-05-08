@@ -1,5 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cacao/model/api.dart';
+import 'package:cacao/repository/remote_data_source/api.dart';
 import 'package:cacao/view/component/bottomButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
