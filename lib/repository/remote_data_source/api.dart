@@ -157,8 +157,7 @@ class API {
       return {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer $accessToken'
-        // 'Authorization': 'Bearer ${jsonDecode(accessToken)}'
+        'Authorization': 'Bearer ${jsonDecode(accessToken)}'
       };
   }
 }
