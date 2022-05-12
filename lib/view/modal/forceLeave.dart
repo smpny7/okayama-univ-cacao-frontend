@@ -86,16 +86,16 @@ class _ForceLeaveModalState extends State<ForceLeaveModal> {
               () => this.safePadding = MediaQuery.of(context).padding.top));
 
   _leaveRoom() async {
-    AudioCache player = AudioCache();
-    print('stuID: ${this.args.studentID}');
-    if (!await API().leaveRoomAndReturnIsSuccessful(
-        this.args.studentID))
-      Navigator.of(context).pushNamed('/NetworkErrorModal');
-    else {
-      if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
-      player.play('sounds/success.mp3');
-      Navigator.of(context).pushReplacementNamed('/BodyTemperature',
-          arguments: this.args.roomID);
-    }
+    // AudioCache player = AudioCache();
+    // print('stuID: ${this.args.studentID}');
+    // if (!await API().leaveRoomAndReturnIsSuccessful(
+    //     this.args.studentID))
+    //   Navigator.of(context).pushNamed('/NetworkErrorModal');
+    // else {
+    //   if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
+    //   player.play('sounds/success.mp3');
+    //   Navigator.of(context).pushReplacementNamed('/BodyTemperature',
+    //       arguments: this.args.roomID);
+    // }
   }
 }

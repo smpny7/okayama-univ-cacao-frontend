@@ -1,8 +1,8 @@
-import 'package:cacao/model/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'component/backFloatingButton.dart';
 import 'component/bottomButtons.dart';
@@ -155,8 +155,11 @@ class _SettingsState extends State<Settings> {
       () => setState(
           () => this.safePadding = MediaQuery.of(context).padding.top));
 
-  _logout() {
-    Auth().logout();
+  _logout() async {
+    var localStorage = await SharedPreferences.getInstance();
+    localStorage.remove('access_token');
+    localStorage.remove('refresh_token');
+    localStorage.remove('room_name');
     Navigator.of(context).popUntil(ModalRoute.withName('/HomeView'));
     Navigator.of(context).pushReplacementNamed('/StartupView');
   }

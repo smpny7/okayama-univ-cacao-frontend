@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cacao/get_it.dart';
-import 'package:cacao/repository/remote_data_source/api.dart';
-import 'package:cacao/model/auth.dart';
 import 'package:cacao/repository/local_data_source/shared_preferences.dart';
+import 'package:cacao/repository/remote_data_source/api.dart';
 import 'package:cacao/repository/remote_data_source/nfc.dart';
 import 'package:cacao/state/home_state.dart';
 import 'package:cacao/view/modal/forceLeave.dart';
@@ -50,13 +49,13 @@ class HomeViewModel extends StateNotifier<HomeState> {
     final connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) return;
     try {
-      final hasValidToken = await API().hasValidToken();
+      final hasValidToken = await API().hasValidAccessToken();
       if (!hasValidToken) {
-        Auth().logout();
+        _logout();
         _navigateToTemperature();
       }
     } catch (_) {
-      Auth().logout();
+      _logout();
       _navigateToTemperature();
     }
   }
@@ -106,16 +105,15 @@ class HomeViewModel extends StateNotifier<HomeState> {
   void _getStudentStatus(String studentID) async {
     try {
       var res = await API().getStudentStatus(studentID);
-      if (res['active_room'] == null)
+      var activeRoom = res.activeRoom;
+      if (activeRoom == null)
         _navigationService.pushNamed('/BodyTemperature', studentID);
-      else if (!res['is_my_room'])
-        _navigationService.pushNamed(
-            '/BodyTemperature',
-            ForceLeaveArguments(
-                studentID: studentID, roomID: res['active_room']));
+      else if (!res.isMyRoom)
+        _navigationService.pushNamed('/BodyTemperature',
+            ForceLeaveArguments(studentID: studentID, roomID: activeRoom));
       else
         _leaveRoom(studentID);
-    } catch (e) {
+    } catch (_) {
       Fluttertoast.showToast(
           msg: "サーバーに接続できません",
           gravity: ToastGravity.TOP,
@@ -127,12 +125,12 @@ class HomeViewModel extends StateNotifier<HomeState> {
 
   void _leaveRoom(studentID) async {
     var player = AudioCache();
-    if (await API().leaveRoomAndReturnIsSuccessful(studentID)) {
+    API().leaveRoom(studentID).then((_) async {
       player.play('sounds/success.mp3');
       if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
       _navigationService.popUntil('/HomeView');
       _navigationService.pushNamed('/LeaveSuccessfulModal');
-    } else {
+    }).catchError((_) {
       _navigationService.popUntil('/HomeView');
       Fluttertoast.showToast(
           msg: "サーバーに接続できません",
@@ -140,7 +138,14 @@ class HomeViewModel extends StateNotifier<HomeState> {
           backgroundColor: Colors.white,
           textColor: HexColor('EA4288'),
           fontSize: 16);
-    }
+    });
+  }
+
+  Future<void> _logout() async {
+    var sharedPreferences = await SharedPreferencesRepository().init();
+    sharedPreferences.removeAccessToken();
+    sharedPreferences.removeRefreshToken();
+    sharedPreferences.removeRoomName();
   }
 
   void _navigateToTemperature() {

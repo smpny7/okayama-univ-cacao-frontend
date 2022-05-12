@@ -169,14 +169,15 @@ class _MedicalConsultationState extends State<MedicalConsultation> {
           () => this.safePadding = MediaQuery.of(context).padding.top));
 
   _enterRoom(args) async {
-    AudioCache player = AudioCache();
-    if (await API()
-        .enterRoomAndReturnIsSuccessful(args.studentID, args.bodyTemp)) {
-      player.play('sounds/success.mp3');
-      if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
-      Navigator.of(context).popUntil(ModalRoute.withName('/HomeView'));
-    } else {
-      Navigator.of(context).pushNamed('/NetworkErrorModal');
-    }
+    // AudioCache player = AudioCache();
+    // //TODO: try-catchに変更
+    // if (await API()
+    //     .enterRoom(args.studentID, args.bodyTemp)) {
+    //   player.play('sounds/success.mp3');
+    //   if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
+    //   Navigator.of(context).popUntil(ModalRoute.withName('/HomeView'));
+    // } else {
+    //   Navigator.of(context).pushNamed('/NetworkErrorModal');
+    // }
   }
 }
