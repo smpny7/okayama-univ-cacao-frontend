@@ -2,7 +2,7 @@ import 'package:cacao/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import 'bodyTemperature.dart';
+import '../ui/pages/temperature_view.dart';
 import '../ui/pages/home_view.dart';
 import 'medicalConsultation.dart';
 import 'modal/authenticationFailed.dart';

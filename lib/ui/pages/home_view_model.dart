@@ -28,21 +28,22 @@ class HomeViewModel extends StateNotifier<HomeState> {
   }
 
   void onButtonPressed() {
-    if (Platform.isIOS)
-      _iOSFeliCaScan();
-    else if (Platform.isAndroid) {
-      _navigationService
-          .showScanModalBottomSheet(() => NfcManager.instance.stopSession());
-      _androidFeliCaScan();
-    } else {
-      Fluttertoast.showToast(
-          msg: "対応していないプラットフォームです",
-          gravity: ToastGravity.TOP,
-          backgroundColor: Colors.white,
-          textColor: HexColor('EA4288'),
-          fontSize: 16);
-      throw ('対応していないプラットフォームです');
-    }
+    _getStudentStatus("12345678");
+    // if (Platform.isIOS)
+    //   _iOSFeliCaScan();
+    // else if (Platform.isAndroid) {
+    //   _navigationService
+    //       .showScanModalBottomSheet(() => NfcManager.instance.stopSession());
+    //   _androidFeliCaScan();
+    // } else {
+    //   Fluttertoast.showToast(
+    //       msg: "対応していないプラットフォームです",
+    //       gravity: ToastGravity.TOP,
+    //       backgroundColor: Colors.white,
+    //       textColor: HexColor('EA4288'),
+    //       fontSize: 16);
+    //   throw ('対応していないプラットフォームです');
+    // }
   }
 
   void _checkIsValidAuth() async {
@@ -148,6 +149,7 @@ class HomeViewModel extends StateNotifier<HomeState> {
     sharedPreferences.removeRoomName();
   }
 
+  //TODO: 修正
   void _navigateToTemperature() {
     _navigationService.popUntil('/HomeView');
     _navigationService.pushReplacementNamed('/StartupView');

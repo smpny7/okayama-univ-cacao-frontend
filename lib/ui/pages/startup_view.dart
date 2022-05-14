@@ -49,7 +49,7 @@ class StartupView extends HookConsumerWidget {
                   Text(
                     '所属団体を認証します',
                     style: TextStyle(
-                      color: HexColor('#FFFFFF'),
+                      color: Colors.white,
                       letterSpacing: 1,
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ class StartupView extends HookConsumerWidget {
                     child: Text(
                       '学務課より配布された\nQRコードを読み取ってください',
                       style: TextStyle(
-                        color: HexColor('#FFFFFF'),
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
                         height: 1.6,

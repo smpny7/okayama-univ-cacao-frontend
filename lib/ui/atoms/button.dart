@@ -27,7 +27,7 @@ class Button extends HookConsumerWidget {
           child: Text(
             text,
             style: TextStyle(
-              color: HexColor('#FFFFFF'),
+              color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.bold,
               letterSpacing: 2.0,

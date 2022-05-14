@@ -39,7 +39,7 @@ class HomeView extends HookConsumerWidget {
                   onPressed: () => Navigator.of(context).pushNamed('/Settings'),
                   child: Icon(
                     Icons.settings,
-                    color: HexColor('#FFFFFF'),
+                    color: Colors.white,
                   ),
                   backgroundColor: HexColor("#FF839C"),
                 ),

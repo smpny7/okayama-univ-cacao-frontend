@@ -59,7 +59,7 @@ class BottomButtons extends StatelessWidget {
                     child: Text(
                       buttonTitle ?? '',
                       style: TextStyle(
-                        color: HexColor('#FFFFFF'),
+                        color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 5.0,
