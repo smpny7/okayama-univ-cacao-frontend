@@ -1,10 +1,12 @@
 import 'package:cacao/get_it.dart';
+import 'package:cacao/ui/pages/diagnose_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../ui/pages/temperature_view.dart';
+import '../ui/pages/authentication_view.dart';
 import '../ui/pages/home_view.dart';
-import 'medicalConsultation.dart';
+import '../ui/pages/startup_view.dart';
+import '../ui/pages/temperature_view.dart';
 import 'modal/authenticationFailed.dart';
 import 'modal/forceLeave.dart';
 import 'modal/leaveSuccessful.dart';
@@ -13,8 +15,6 @@ import 'page/contact.dart';
 import 'page/guidelinesForHealth.dart';
 import 'page/notice.dart';
 import 'page/privacyPolicy.dart';
-import '../ui/pages/startup_view.dart';
-import '../ui/pages/authentication_view.dart';
 import 'settings.dart';
 
 class App extends StatelessWidget {
@@ -39,8 +39,8 @@ class App extends StatelessWidget {
         '/StartupView': (BuildContext context) => StartupView(),
         '/AuthenticationView': (BuildContext context) => AuthenticationView(),
         '/HomeView': (BuildContext context) => HomeView(),
-        '/BodyTemperature': (BuildContext context) => BodyTemperature(),
-        '/MedicalConsultation': (BuildContext context) => MedicalConsultation(),
+        '/TemperatureView': (BuildContext context) => TemperatureView(),
+        '/DiagnoseView': (BuildContext context) => DiagnoseView(),
         '/Settings': (BuildContext context) => Settings(),
         '/Notice': (BuildContext context) => Notice(),
         '/PrivacyPolicy': (BuildContext context) => PrivacyPolicy(),

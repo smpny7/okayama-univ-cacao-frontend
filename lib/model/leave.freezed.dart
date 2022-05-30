@@ -56,27 +56,27 @@ class _$LeaveCopyWithImpl<$Res> implements $LeaveCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$LeaveCopyWith<$Res> implements $LeaveCopyWith<$Res> {
-  factory _$LeaveCopyWith(_Leave value, $Res Function(_Leave) then) =
-      __$LeaveCopyWithImpl<$Res>;
+abstract class _$$_LeaveCopyWith<$Res> implements $LeaveCopyWith<$Res> {
+  factory _$$_LeaveCopyWith(_$_Leave value, $Res Function(_$_Leave) then) =
+      __$$_LeaveCopyWithImpl<$Res>;
   @override
   $Res call({bool success});
 }
 
 /// @nodoc
-class __$LeaveCopyWithImpl<$Res> extends _$LeaveCopyWithImpl<$Res>
-    implements _$LeaveCopyWith<$Res> {
-  __$LeaveCopyWithImpl(_Leave _value, $Res Function(_Leave) _then)
-      : super(_value, (v) => _then(v as _Leave));
+class __$$_LeaveCopyWithImpl<$Res> extends _$LeaveCopyWithImpl<$Res>
+    implements _$$_LeaveCopyWith<$Res> {
+  __$$_LeaveCopyWithImpl(_$_Leave _value, $Res Function(_$_Leave) _then)
+      : super(_value, (v) => _then(v as _$_Leave));
 
   @override
-  _Leave get _value => super._value as _Leave;
+  _$_Leave get _value => super._value as _$_Leave;
 
   @override
   $Res call({
     Object? success = freezed,
   }) {
-    return _then(_Leave(
+    return _then(_$_Leave(
       success: success == freezed
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
@@ -105,7 +105,7 @@ class _$_Leave implements _Leave {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Leave &&
+            other is _$_Leave &&
             const DeepCollectionEquality().equals(other.success, success));
   }
 
@@ -116,8 +116,8 @@ class _$_Leave implements _Leave {
 
   @JsonKey(ignore: true)
   @override
-  _$LeaveCopyWith<_Leave> get copyWith =>
-      __$LeaveCopyWithImpl<_Leave>(this, _$identity);
+  _$$_LeaveCopyWith<_$_Leave> get copyWith =>
+      __$$_LeaveCopyWithImpl<_$_Leave>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -134,5 +134,6 @@ abstract class _Leave implements Leave {
   bool get success => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LeaveCopyWith<_Leave> get copyWith => throw _privateConstructorUsedError;
+  _$$_LeaveCopyWith<_$_Leave> get copyWith =>
+      throw _privateConstructorUsedError;
 }

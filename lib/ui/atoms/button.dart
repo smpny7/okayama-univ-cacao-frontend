@@ -37,7 +37,7 @@ class Button extends HookConsumerWidget {
 
     Widget _primaryButton() => Styled.widget(child: _primaryButtonText())
         .alignment(Alignment.center)
-        .ripple()
+        .ripple(enable: isActive)
         .backgroundLinearGradient(
           animate: true,
           begin: FractionalOffset.centerLeft,
@@ -50,7 +50,7 @@ class Button extends HookConsumerWidget {
         .clipRRect(all: 20)
         .borderRadius(all: 20, animate: true)
         .elevation(
-          pressed.value ? 0 : 10,
+          isActive && pressed.value ? 0 : 10,
           borderRadius: BorderRadius.circular(20),
           shadowColor: Colors.white,
         )
@@ -59,19 +59,24 @@ class Button extends HookConsumerWidget {
         .width(310)
         .gestures(
           onTapChange: (tapStatus) => pressed.value = tapStatus,
-          onTap: () => onTapped(),
+          onTap: () => isActive ? onTapped() : null,
         )
-        .scale(all: pressed.value ? 0.95 : 1.0, animate: true)
+        .scale(all: isActive && pressed.value ? 0.95 : 1.0, animate: true)
         .animate(Duration(milliseconds: 150), Curves.easeOut);
 
     Widget _secondlyButtonText() => Container(
           alignment: Alignment.center,
           child: GradientText(
             text,
-            colors: [
-              HexColor('#FF598B'),
-              HexColor('#FF8D86'),
-            ],
+            colors: isActive
+                ? [
+                    HexColor('#FF598B'),
+                    HexColor('#FF8D86'),
+                  ]
+                : [
+                    HexColor('#FBD4D4'),
+                    HexColor('#FBD4D4'),
+                  ],
             gradientDirection: GradientDirection.ttb,
             gradientType: GradientType.linear,
             textAlign: TextAlign.center,
@@ -85,12 +90,13 @@ class Button extends HookConsumerWidget {
 
     Widget _secondlyButton() => Styled.widget(child: _secondlyButtonText())
         .alignment(Alignment.center)
-        .ripple()
-        .backgroundColor(Colors.white, animate: true)
+        .ripple(enable: isActive)
+        .backgroundColor(isActive ? Colors.white : HexColor('#FFA3AF'),
+            animate: true)
         .clipRRect(all: 20)
         .borderRadius(all: 20, animate: true)
         .elevation(
-          pressed.value ? 0 : 10,
+          isActive && pressed.value ? 0 : 10,
           borderRadius: BorderRadius.circular(20),
           shadowColor: Colors.white,
         )
@@ -99,9 +105,9 @@ class Button extends HookConsumerWidget {
         .width(310)
         .gestures(
           onTapChange: (tapStatus) => pressed.value = tapStatus,
-          onTap: () => onTapped(),
+          onTap: () => isActive ? onTapped() : null,
         )
-        .scale(all: pressed.value ? 0.95 : 1.0, animate: true)
+        .scale(all: isActive && pressed.value ? 0.95 : 1.0, animate: true)
         .animate(Duration(milliseconds: 150), Curves.easeOut);
 
     return isPrimaryColor ? _primaryButton() : _secondlyButton();

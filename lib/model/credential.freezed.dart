@@ -59,30 +59,31 @@ class _$CredentialCopyWithImpl<$Res> implements $CredentialCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$CredentialCopyWith<$Res> implements $CredentialCopyWith<$Res> {
-  factory _$CredentialCopyWith(
-          _Credential value, $Res Function(_Credential) then) =
-      __$CredentialCopyWithImpl<$Res>;
+abstract class _$$_CredentialCopyWith<$Res>
+    implements $CredentialCopyWith<$Res> {
+  factory _$$_CredentialCopyWith(
+          _$_Credential value, $Res Function(_$_Credential) then) =
+      __$$_CredentialCopyWithImpl<$Res>;
   @override
   $Res call({String username, String password});
 }
 
 /// @nodoc
-class __$CredentialCopyWithImpl<$Res> extends _$CredentialCopyWithImpl<$Res>
-    implements _$CredentialCopyWith<$Res> {
-  __$CredentialCopyWithImpl(
-      _Credential _value, $Res Function(_Credential) _then)
-      : super(_value, (v) => _then(v as _Credential));
+class __$$_CredentialCopyWithImpl<$Res> extends _$CredentialCopyWithImpl<$Res>
+    implements _$$_CredentialCopyWith<$Res> {
+  __$$_CredentialCopyWithImpl(
+      _$_Credential _value, $Res Function(_$_Credential) _then)
+      : super(_value, (v) => _then(v as _$_Credential));
 
   @override
-  _Credential get _value => super._value as _Credential;
+  _$_Credential get _value => super._value as _$_Credential;
 
   @override
   $Res call({
     Object? username = freezed,
     Object? password = freezed,
   }) {
-    return _then(_Credential(
+    return _then(_$_Credential(
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -118,7 +119,7 @@ class _$_Credential implements _Credential {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Credential &&
+            other is _$_Credential &&
             const DeepCollectionEquality().equals(other.username, username) &&
             const DeepCollectionEquality().equals(other.password, password));
   }
@@ -131,8 +132,8 @@ class _$_Credential implements _Credential {
 
   @JsonKey(ignore: true)
   @override
-  _$CredentialCopyWith<_Credential> get copyWith =>
-      __$CredentialCopyWithImpl<_Credential>(this, _$identity);
+  _$$_CredentialCopyWith<_$_Credential> get copyWith =>
+      __$$_CredentialCopyWithImpl<_$_Credential>(this, _$identity);
 }
 
 abstract class _Credential implements Credential {
@@ -146,6 +147,6 @@ abstract class _Credential implements Credential {
   String get password => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CredentialCopyWith<_Credential> get copyWith =>
+  _$$_CredentialCopyWith<_$_Credential> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -71,9 +71,9 @@ class _$StatusCopyWithImpl<$Res> implements $StatusCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$StatusCopyWith<$Res> implements $StatusCopyWith<$Res> {
-  factory _$StatusCopyWith(_Status value, $Res Function(_Status) then) =
-      __$StatusCopyWithImpl<$Res>;
+abstract class _$$_StatusCopyWith<$Res> implements $StatusCopyWith<$Res> {
+  factory _$$_StatusCopyWith(_$_Status value, $Res Function(_$_Status) then) =
+      __$$_StatusCopyWithImpl<$Res>;
   @override
   $Res call({bool success, StatusData data});
 
@@ -82,20 +82,20 @@ abstract class _$StatusCopyWith<$Res> implements $StatusCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$StatusCopyWithImpl<$Res> extends _$StatusCopyWithImpl<$Res>
-    implements _$StatusCopyWith<$Res> {
-  __$StatusCopyWithImpl(_Status _value, $Res Function(_Status) _then)
-      : super(_value, (v) => _then(v as _Status));
+class __$$_StatusCopyWithImpl<$Res> extends _$StatusCopyWithImpl<$Res>
+    implements _$$_StatusCopyWith<$Res> {
+  __$$_StatusCopyWithImpl(_$_Status _value, $Res Function(_$_Status) _then)
+      : super(_value, (v) => _then(v as _$_Status));
 
   @override
-  _Status get _value => super._value as _Status;
+  _$_Status get _value => super._value as _$_Status;
 
   @override
   $Res call({
     Object? success = freezed,
     Object? data = freezed,
   }) {
-    return _then(_Status(
+    return _then(_$_Status(
       success: success == freezed
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
@@ -130,7 +130,7 @@ class _$_Status implements _Status {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Status &&
+            other is _$_Status &&
             const DeepCollectionEquality().equals(other.success, success) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
@@ -144,8 +144,8 @@ class _$_Status implements _Status {
 
   @JsonKey(ignore: true)
   @override
-  _$StatusCopyWith<_Status> get copyWith =>
-      __$StatusCopyWithImpl<_Status>(this, _$identity);
+  _$$_StatusCopyWith<_$_Status> get copyWith =>
+      __$$_StatusCopyWithImpl<_$_Status>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -166,7 +166,8 @@ abstract class _Status implements Status {
   StatusData get data => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$StatusCopyWith<_Status> get copyWith => throw _privateConstructorUsedError;
+  _$$_StatusCopyWith<_$_Status> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 StatusData _$StatusDataFromJson(Map<String, dynamic> json) {
@@ -223,10 +224,11 @@ class _$StatusDataCopyWithImpl<$Res> implements $StatusDataCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$StatusDataCopyWith<$Res> implements $StatusDataCopyWith<$Res> {
-  factory _$StatusDataCopyWith(
-          _StatusData value, $Res Function(_StatusData) then) =
-      __$StatusDataCopyWithImpl<$Res>;
+abstract class _$$_StatusDataCopyWith<$Res>
+    implements $StatusDataCopyWith<$Res> {
+  factory _$$_StatusDataCopyWith(
+          _$_StatusData value, $Res Function(_$_StatusData) then) =
+      __$$_StatusDataCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'active_room') String? activeRoom,
@@ -234,21 +236,21 @@ abstract class _$StatusDataCopyWith<$Res> implements $StatusDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$StatusDataCopyWithImpl<$Res> extends _$StatusDataCopyWithImpl<$Res>
-    implements _$StatusDataCopyWith<$Res> {
-  __$StatusDataCopyWithImpl(
-      _StatusData _value, $Res Function(_StatusData) _then)
-      : super(_value, (v) => _then(v as _StatusData));
+class __$$_StatusDataCopyWithImpl<$Res> extends _$StatusDataCopyWithImpl<$Res>
+    implements _$$_StatusDataCopyWith<$Res> {
+  __$$_StatusDataCopyWithImpl(
+      _$_StatusData _value, $Res Function(_$_StatusData) _then)
+      : super(_value, (v) => _then(v as _$_StatusData));
 
   @override
-  _StatusData get _value => super._value as _StatusData;
+  _$_StatusData get _value => super._value as _$_StatusData;
 
   @override
   $Res call({
     Object? activeRoom = freezed,
     Object? isMyRoom = freezed,
   }) {
-    return _then(_StatusData(
+    return _then(_$_StatusData(
       activeRoom: activeRoom == freezed
           ? _value.activeRoom
           : activeRoom // ignore: cast_nullable_to_non_nullable
@@ -287,7 +289,7 @@ class _$_StatusData implements _StatusData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _StatusData &&
+            other is _$_StatusData &&
             const DeepCollectionEquality()
                 .equals(other.activeRoom, activeRoom) &&
             const DeepCollectionEquality().equals(other.isMyRoom, isMyRoom));
@@ -302,8 +304,8 @@ class _$_StatusData implements _StatusData {
 
   @JsonKey(ignore: true)
   @override
-  _$StatusDataCopyWith<_StatusData> get copyWith =>
-      __$StatusDataCopyWithImpl<_StatusData>(this, _$identity);
+  _$$_StatusDataCopyWith<_$_StatusData> get copyWith =>
+      __$$_StatusDataCopyWithImpl<_$_StatusData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -328,6 +330,6 @@ abstract class _StatusData implements StatusData {
   bool get isMyRoom => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$StatusDataCopyWith<_StatusData> get copyWith =>
+  _$$_StatusDataCopyWith<_$_StatusData> get copyWith =>
       throw _privateConstructorUsedError;
 }

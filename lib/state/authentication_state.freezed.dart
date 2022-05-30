@@ -60,32 +60,32 @@ class _$AuthenticationStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$AuthenticationStateCopyWith<$Res>
+abstract class _$$_AuthenticationStateCopyWith<$Res>
     implements $AuthenticationStateCopyWith<$Res> {
-  factory _$AuthenticationStateCopyWith(_AuthenticationState value,
-          $Res Function(_AuthenticationState) then) =
-      __$AuthenticationStateCopyWithImpl<$Res>;
+  factory _$$_AuthenticationStateCopyWith(_$_AuthenticationState value,
+          $Res Function(_$_AuthenticationState) then) =
+      __$$_AuthenticationStateCopyWithImpl<$Res>;
   @override
   $Res call({bool isPausingCamera, QRViewController? qrViewController});
 }
 
 /// @nodoc
-class __$AuthenticationStateCopyWithImpl<$Res>
+class __$$_AuthenticationStateCopyWithImpl<$Res>
     extends _$AuthenticationStateCopyWithImpl<$Res>
-    implements _$AuthenticationStateCopyWith<$Res> {
-  __$AuthenticationStateCopyWithImpl(
-      _AuthenticationState _value, $Res Function(_AuthenticationState) _then)
-      : super(_value, (v) => _then(v as _AuthenticationState));
+    implements _$$_AuthenticationStateCopyWith<$Res> {
+  __$$_AuthenticationStateCopyWithImpl(_$_AuthenticationState _value,
+      $Res Function(_$_AuthenticationState) _then)
+      : super(_value, (v) => _then(v as _$_AuthenticationState));
 
   @override
-  _AuthenticationState get _value => super._value as _AuthenticationState;
+  _$_AuthenticationState get _value => super._value as _$_AuthenticationState;
 
   @override
   $Res call({
     Object? isPausingCamera = freezed,
     Object? qrViewController = freezed,
   }) {
-    return _then(_AuthenticationState(
+    return _then(_$_AuthenticationState(
       isPausingCamera: isPausingCamera == freezed
           ? _value.isPausingCamera
           : isPausingCamera // ignore: cast_nullable_to_non_nullable
@@ -120,7 +120,7 @@ class _$_AuthenticationState implements _AuthenticationState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AuthenticationState &&
+            other is _$_AuthenticationState &&
             const DeepCollectionEquality()
                 .equals(other.isPausingCamera, isPausingCamera) &&
             const DeepCollectionEquality()
@@ -135,8 +135,8 @@ class _$_AuthenticationState implements _AuthenticationState {
 
   @JsonKey(ignore: true)
   @override
-  _$AuthenticationStateCopyWith<_AuthenticationState> get copyWith =>
-      __$AuthenticationStateCopyWithImpl<_AuthenticationState>(
+  _$$_AuthenticationStateCopyWith<_$_AuthenticationState> get copyWith =>
+      __$$_AuthenticationStateCopyWithImpl<_$_AuthenticationState>(
           this, _$identity);
 }
 
@@ -151,6 +151,6 @@ abstract class _AuthenticationState implements AuthenticationState {
   QRViewController? get qrViewController => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AuthenticationStateCopyWith<_AuthenticationState> get copyWith =>
+  _$$_AuthenticationStateCopyWith<_$_AuthenticationState> get copyWith =>
       throw _privateConstructorUsedError;
 }

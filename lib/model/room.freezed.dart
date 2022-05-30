@@ -62,28 +62,28 @@ class _$RoomCopyWithImpl<$Res> implements $RoomCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$RoomCopyWith<$Res> implements $RoomCopyWith<$Res> {
-  factory _$RoomCopyWith(_Room value, $Res Function(_Room) then) =
-      __$RoomCopyWithImpl<$Res>;
+abstract class _$$_RoomCopyWith<$Res> implements $RoomCopyWith<$Res> {
+  factory _$$_RoomCopyWith(_$_Room value, $Res Function(_$_Room) then) =
+      __$$_RoomCopyWithImpl<$Res>;
   @override
   $Res call({bool success, String data});
 }
 
 /// @nodoc
-class __$RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
-    implements _$RoomCopyWith<$Res> {
-  __$RoomCopyWithImpl(_Room _value, $Res Function(_Room) _then)
-      : super(_value, (v) => _then(v as _Room));
+class __$$_RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res>
+    implements _$$_RoomCopyWith<$Res> {
+  __$$_RoomCopyWithImpl(_$_Room _value, $Res Function(_$_Room) _then)
+      : super(_value, (v) => _then(v as _$_Room));
 
   @override
-  _Room get _value => super._value as _Room;
+  _$_Room get _value => super._value as _$_Room;
 
   @override
   $Res call({
     Object? success = freezed,
     Object? data = freezed,
   }) {
-    return _then(_Room(
+    return _then(_$_Room(
       success: success == freezed
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
@@ -117,7 +117,7 @@ class _$_Room implements _Room {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Room &&
+            other is _$_Room &&
             const DeepCollectionEquality().equals(other.success, success) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
@@ -131,8 +131,8 @@ class _$_Room implements _Room {
 
   @JsonKey(ignore: true)
   @override
-  _$RoomCopyWith<_Room> get copyWith =>
-      __$RoomCopyWithImpl<_Room>(this, _$identity);
+  _$$_RoomCopyWith<_$_Room> get copyWith =>
+      __$$_RoomCopyWithImpl<_$_Room>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -152,5 +152,5 @@ abstract class _Room implements Room {
   String get data => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RoomCopyWith<_Room> get copyWith => throw _privateConstructorUsedError;
+  _$$_RoomCopyWith<_$_Room> get copyWith => throw _privateConstructorUsedError;
 }

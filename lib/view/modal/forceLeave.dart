@@ -94,7 +94,7 @@ class _ForceLeaveModalState extends State<ForceLeaveModal> {
     // else {
     //   if (await Vibration.hasVibrator() ?? false) Vibration.vibrate();
     //   player.play('sounds/success.mp3');
-    //   Navigator.of(context).pushReplacementNamed('/BodyTemperature',
+    //   Navigator.of(context).pushReplacementNamed('/TemperatureView',
     //       arguments: this.args.roomID);
     // }
   }

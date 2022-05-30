@@ -1,23 +1,28 @@
+import 'package:cacao/provider/temperature_provider.dart';
+import 'package:cacao/state/temperature_state.dart';
+import 'package:cacao/ui/pages/temperature_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class BodyTemperature extends HookConsumerWidget {
+class TemperatureView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _temperatureState = ref.watch(temperatureProvider);
+    final _temperatureProvider = ref.watch(temperatureProvider.notifier);
+
     final _safePadding = useState(0.0);
     final _spaceRate = useState(0.0);
 
     useEffect(() {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-      Future.delayed(Duration.zero,
-          () => _safePadding.value = MediaQuery.of(context).padding.top);
-      Future.delayed(
-          Duration.zero,
-          () => _spaceRate.value =
-              (MediaQuery.of(context).size.height - 667) / 6);
+      Future.delayed(Duration.zero, () {
+        _safePadding.value = MediaQuery.of(context).padding.top;
+        _spaceRate.value = (MediaQuery.of(context).size.height - 667) / 6;
+        _temperatureProvider.onLoad();
+      });
       return null;
     }, const []);
 
@@ -55,16 +60,23 @@ class BodyTemperature extends HookConsumerWidget {
           ),
         );
 
-    Widget _numericKeypad() {
-      Widget _btn({String? text, Icon? icon, bool? isDisabled}) => SizedBox(
+    Widget _numericKeypad(InputDisabledState _inputDisabledState) {
+      Widget _btn(
+              {String? text,
+              Icon? icon,
+              Function? onClick,
+              required bool isDisabled}) =>
+          SizedBox(
             child: ElevatedButton(
-              onPressed: (isDisabled ?? false) ? null : () {},
+              onPressed: isDisabled ? null : () => onClick!(),
               child: icon != null
                   ? icon
                   : Text(
                       text ?? '',
                       style: TextStyle(
-                        color: HexColor("#090909"),
+                        color: isDisabled
+                            ? HexColor("#C2C2C2")
+                            : HexColor("#090909"),
                         fontFamily: "Roboto",
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -94,38 +106,82 @@ class BodyTemperature extends HookConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _btn(text: '1'),
-              _btn(text: '2'),
-              _btn(text: '3'),
+              _btn(
+                  text: '1',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.one),
+                  isDisabled: _inputDisabledState.one),
+              _btn(
+                  text: '2',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.two),
+                  isDisabled: _inputDisabledState.two),
+              _btn(
+                  text: '3',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.three),
+                  isDisabled: _inputDisabledState.three),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _btn(text: '4'),
-              _btn(text: '5'),
-              _btn(text: '6'),
+              _btn(
+                  text: '4',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.four),
+                  isDisabled: _inputDisabledState.four),
+              _btn(
+                  text: '5',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.five),
+                  isDisabled: _inputDisabledState.five),
+              _btn(
+                  text: '6',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.six),
+                  isDisabled: _inputDisabledState.six),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _btn(text: '7'),
-              _btn(text: '8'),
-              _btn(text: '9'),
+              _btn(
+                  text: '7',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.seven),
+                  isDisabled: _inputDisabledState.seven),
+              _btn(
+                  text: '8',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.eight),
+                  isDisabled: _inputDisabledState.eight),
+              _btn(
+                  text: '9',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.nine),
+                  isDisabled: _inputDisabledState.nine),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              _btn(text: '0'),
+              _btn(
+                  text: '0',
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.zero),
+                  isDisabled: _inputDisabledState.zero),
               Container(width: 9),
               _btn(
-                icon: Icon(
-                  Icons.backspace_outlined,
-                  color: HexColor("#090909"),
-                ),
-              ),
+                  icon: Icon(
+                    Icons.backspace_outlined,
+                    color: _inputDisabledState.delete
+                        ? HexColor("#C2C2C2")
+                        : HexColor("#090909"),
+                  ),
+                  onClick: () =>
+                      _temperatureProvider.onPressedButton(InputType.delete),
+                  isDisabled: _inputDisabledState.delete),
             ],
           ),
         ],
@@ -219,7 +275,9 @@ class BodyTemperature extends HookConsumerWidget {
                 children: [
                   _textBox(value: 3),
                   Container(width: 6),
-                  _textBox(isFocused: true),
+                  _textBox(
+                      value: _temperatureState.unitDigit,
+                      isFocused: _temperatureState.unitDigit == null),
                   Container(width: 8),
                   Text(
                     '.',
@@ -231,7 +289,10 @@ class BodyTemperature extends HookConsumerWidget {
                     ),
                   ),
                   Container(width: 8),
-                  _textBox(),
+                  _textBox(
+                      value: _temperatureState.decimalPlace,
+                      isFocused: _temperatureState.unitDigit != null &&
+                          _temperatureState.decimalPlace == null),
                 ],
               ),
               Container(height: _spaceRate.value + 15),
@@ -277,7 +338,11 @@ class BodyTemperature extends HookConsumerWidget {
                     children: [
                       Container(height: 20),
                       Container(
-                          child: _numericKeypad(), height: 290, width: 301),
+                        child: _numericKeypad(
+                            _temperatureState.inputDisabledState),
+                        height: 290,
+                        width: 301,
+                      ),
                       Container(height: _spaceRate.value + 20),
                     ],
                   ),

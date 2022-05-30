@@ -28,22 +28,22 @@ class HomeViewModel extends StateNotifier<HomeState> {
   }
 
   void onButtonPressed() {
-    _getStudentStatus("12345678");
-    // if (Platform.isIOS)
-    //   _iOSFeliCaScan();
-    // else if (Platform.isAndroid) {
-    //   _navigationService
-    //       .showScanModalBottomSheet(() => NfcManager.instance.stopSession());
-    //   _androidFeliCaScan();
-    // } else {
-    //   Fluttertoast.showToast(
-    //       msg: "対応していないプラットフォームです",
-    //       gravity: ToastGravity.TOP,
-    //       backgroundColor: Colors.white,
-    //       textColor: HexColor('EA4288'),
-    //       fontSize: 16);
-    //   throw ('対応していないプラットフォームです');
-    // }
+    // _getStudentStatus("12345678");
+    if (Platform.isIOS)
+      _iOSFeliCaScan();
+    else if (Platform.isAndroid) {
+      _navigationService
+          .showScanModalBottomSheet(() => NfcManager.instance.stopSession());
+      _androidFeliCaScan();
+    } else {
+      Fluttertoast.showToast(
+          msg: "対応していないプラットフォームです",
+          gravity: ToastGravity.TOP,
+          backgroundColor: Colors.white,
+          textColor: HexColor('EA4288'),
+          fontSize: 16);
+      throw ('対応していないプラットフォームです');
+    }
   }
 
   void _checkIsValidAuth() async {
@@ -108,9 +108,9 @@ class HomeViewModel extends StateNotifier<HomeState> {
       var res = await API().getStudentStatus(studentID);
       var activeRoom = res.activeRoom;
       if (activeRoom == null)
-        _navigationService.pushNamed('/BodyTemperature', studentID);
+        _navigationService.pushNamed('/TemperatureView', studentID);
       else if (!res.isMyRoom)
-        _navigationService.pushNamed('/BodyTemperature',
+        _navigationService.pushNamed('/TemperatureView',
             ForceLeaveArguments(studentID: studentID, roomID: activeRoom));
       else
         _leaveRoom(studentID);

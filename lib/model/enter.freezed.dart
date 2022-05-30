@@ -56,27 +56,27 @@ class _$EnterCopyWithImpl<$Res> implements $EnterCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$EnterCopyWith<$Res> implements $EnterCopyWith<$Res> {
-  factory _$EnterCopyWith(_Enter value, $Res Function(_Enter) then) =
-      __$EnterCopyWithImpl<$Res>;
+abstract class _$$_EnterCopyWith<$Res> implements $EnterCopyWith<$Res> {
+  factory _$$_EnterCopyWith(_$_Enter value, $Res Function(_$_Enter) then) =
+      __$$_EnterCopyWithImpl<$Res>;
   @override
   $Res call({bool success});
 }
 
 /// @nodoc
-class __$EnterCopyWithImpl<$Res> extends _$EnterCopyWithImpl<$Res>
-    implements _$EnterCopyWith<$Res> {
-  __$EnterCopyWithImpl(_Enter _value, $Res Function(_Enter) _then)
-      : super(_value, (v) => _then(v as _Enter));
+class __$$_EnterCopyWithImpl<$Res> extends _$EnterCopyWithImpl<$Res>
+    implements _$$_EnterCopyWith<$Res> {
+  __$$_EnterCopyWithImpl(_$_Enter _value, $Res Function(_$_Enter) _then)
+      : super(_value, (v) => _then(v as _$_Enter));
 
   @override
-  _Enter get _value => super._value as _Enter;
+  _$_Enter get _value => super._value as _$_Enter;
 
   @override
   $Res call({
     Object? success = freezed,
   }) {
-    return _then(_Enter(
+    return _then(_$_Enter(
       success: success == freezed
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
@@ -105,7 +105,7 @@ class _$_Enter implements _Enter {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Enter &&
+            other is _$_Enter &&
             const DeepCollectionEquality().equals(other.success, success));
   }
 
@@ -116,8 +116,8 @@ class _$_Enter implements _Enter {
 
   @JsonKey(ignore: true)
   @override
-  _$EnterCopyWith<_Enter> get copyWith =>
-      __$EnterCopyWithImpl<_Enter>(this, _$identity);
+  _$$_EnterCopyWith<_$_Enter> get copyWith =>
+      __$$_EnterCopyWithImpl<_$_Enter>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -134,5 +134,6 @@ abstract class _Enter implements Enter {
   bool get success => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$EnterCopyWith<_Enter> get copyWith => throw _privateConstructorUsedError;
+  _$$_EnterCopyWith<_$_Enter> get copyWith =>
+      throw _privateConstructorUsedError;
 }

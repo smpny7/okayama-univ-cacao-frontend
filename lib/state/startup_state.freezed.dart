@@ -34,21 +34,22 @@ class _$StartupStateCopyWithImpl<$Res> implements $StartupStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$StartupStateCopyWith<$Res> {
-  factory _$StartupStateCopyWith(
-          _StartupState value, $Res Function(_StartupState) then) =
-      __$StartupStateCopyWithImpl<$Res>;
+abstract class _$$_StartupStateCopyWith<$Res> {
+  factory _$$_StartupStateCopyWith(
+          _$_StartupState value, $Res Function(_$_StartupState) then) =
+      __$$_StartupStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$StartupStateCopyWithImpl<$Res> extends _$StartupStateCopyWithImpl<$Res>
-    implements _$StartupStateCopyWith<$Res> {
-  __$StartupStateCopyWithImpl(
-      _StartupState _value, $Res Function(_StartupState) _then)
-      : super(_value, (v) => _then(v as _StartupState));
+class __$$_StartupStateCopyWithImpl<$Res>
+    extends _$StartupStateCopyWithImpl<$Res>
+    implements _$$_StartupStateCopyWith<$Res> {
+  __$$_StartupStateCopyWithImpl(
+      _$_StartupState _value, $Res Function(_$_StartupState) _then)
+      : super(_value, (v) => _then(v as _$_StartupState));
 
   @override
-  _StartupState get _value => super._value as _StartupState;
+  _$_StartupState get _value => super._value as _$_StartupState;
 }
 
 /// @nodoc
@@ -64,7 +65,7 @@ class _$_StartupState implements _StartupState {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _StartupState);
+        (other.runtimeType == runtimeType && other is _$_StartupState);
   }
 
   @override

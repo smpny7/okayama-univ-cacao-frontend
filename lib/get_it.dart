@@ -9,8 +9,12 @@ GetIt locator = GetIt.instance;
 class NavigationService {
   final navigatorKey = new GlobalKey<NavigatorState>();
 
+  BuildContext? getContext() => navigatorKey.currentContext;
+  NavigatorState? getState() => navigatorKey.currentState;
+
   Future<dynamic> pushNamed(String routeName, [Object? arguments]) {
-    return navigatorKey.currentState!.pushNamed(routeName, arguments: arguments);
+    return navigatorKey.currentState!
+        .pushNamed(routeName, arguments: arguments);
   }
 
   Future<dynamic> pushReplacementNamed(String routeName) =>

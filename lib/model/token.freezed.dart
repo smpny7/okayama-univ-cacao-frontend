@@ -82,9 +82,9 @@ class _$TokenCopyWithImpl<$Res> implements $TokenCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
-  factory _$TokenCopyWith(_Token value, $Res Function(_Token) then) =
-      __$TokenCopyWithImpl<$Res>;
+abstract class _$$_TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
+  factory _$$_TokenCopyWith(_$_Token value, $Res Function(_$_Token) then) =
+      __$$_TokenCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(name: 'token_type') String tokenType,
@@ -94,13 +94,13 @@ abstract class _$TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
-    implements _$TokenCopyWith<$Res> {
-  __$TokenCopyWithImpl(_Token _value, $Res Function(_Token) _then)
-      : super(_value, (v) => _then(v as _Token));
+class __$$_TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
+    implements _$$_TokenCopyWith<$Res> {
+  __$$_TokenCopyWithImpl(_$_Token _value, $Res Function(_$_Token) _then)
+      : super(_value, (v) => _then(v as _$_Token));
 
   @override
-  _Token get _value => super._value as _Token;
+  _$_Token get _value => super._value as _$_Token;
 
   @override
   $Res call({
@@ -109,7 +109,7 @@ class __$TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
     Object? accessToken = freezed,
     Object? refreshToken = freezed,
   }) {
-    return _then(_Token(
+    return _then(_$_Token(
       tokenType: tokenType == freezed
           ? _value.tokenType
           : tokenType // ignore: cast_nullable_to_non_nullable
@@ -164,7 +164,7 @@ class _$_Token implements _Token {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Token &&
+            other is _$_Token &&
             const DeepCollectionEquality().equals(other.tokenType, tokenType) &&
             const DeepCollectionEquality().equals(other.expiresIn, expiresIn) &&
             const DeepCollectionEquality()
@@ -184,8 +184,8 @@ class _$_Token implements _Token {
 
   @JsonKey(ignore: true)
   @override
-  _$TokenCopyWith<_Token> get copyWith =>
-      __$TokenCopyWithImpl<_Token>(this, _$identity);
+  _$$_TokenCopyWith<_$_Token> get copyWith =>
+      __$$_TokenCopyWithImpl<_$_Token>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -217,5 +217,6 @@ abstract class _Token implements Token {
   String get refreshToken => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TokenCopyWith<_Token> get copyWith => throw _privateConstructorUsedError;
+  _$$_TokenCopyWith<_$_Token> get copyWith =>
+      throw _privateConstructorUsedError;
 }
